@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Nescafe Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .font-poppins {
+      font-family: 'Poppins', sans-serif;
+    }
+    .sidebar {
+      transition: all 0.3s ease;
+    }
+    .sidebar-collapsed {
+      width: 80px;
+    }
+    .sidebar-collapsed .nav-text {
+      display: none;
+    }
+    .sidebar-collapsed .logo-text {
+      display: none;
+    }
+    .sidebar-collapsed .menu-toggle i {
+      transform: rotate(180deg);
+    }
+    .content {
+      transition: margin-left 0.3s ease;
+    }
+    .active-nav {
+      background-color: rgba(234, 179, 8, 0.2);
+      border-left: 4px solid rgb(234, 179, 8);
+    }
+    .active-nav i, .active-nav .nav-text {
+      color: rgb(234, 179, 8);
+    }
+  </style>
+</head>
+<body class="font-poppins bg-gray-100">
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <div class="sidebar bg-gray-900 text-white w-64 flex-shrink-0 flex flex-col">
+      <div class="p-4 flex items-center justify-between border-b border-gray-800">
+        <div class="flex items-center">
+          <i class="fas fa-coffee text-yellow-400 text-2xl mr-3"></i>
+          <span class="logo-text text-xl font-bold">Nescafe Admin</span>
+        </div>
+        <button class="menu-toggle text-gray-400 hover:text-white focus:outline-none">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+      
+      <div class="flex-1 overflow-y-auto py-4">
+        <nav>
+          <ul class="space-y-1 px-2">
+            <li>
+              <a href="#dashboard" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-tachometer-alt text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="#menu-management" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition active-nav">
+                <i class="fas fa-utensils text-yellow-400 w-6 text-center"></i>
+                <span class="nav-text ml-3 text-yellow-400">Menu Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="#stock-management" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-boxes text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Stock Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="#orders" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-shopping-cart text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Orders</span>
+              </a>
+            </li>
+            <li>
+              <a href="#staff" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-users text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Staff Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="#reports" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-chart-bar text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Reports</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      
+      <div class="p-4 border-t border-gray-800">
+        <div class="flex items-center">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Admin" class="w-10 h-10 rounded-full">
+          <div class="ml-3 nav-text">
+            <div class="font-medium">Admin User</div>
+            <div class="text-sm text-gray-400">Super Admin</div>
+          </div>
+        </div>
+        <a href="auth.html" class="mt-4 flex items-center text-gray-400 hover:text-white transition">
+          <i class="fas fa-sign-out-alt w-6 text-center"></i>
+          <span class="nav-text ml-3">Logout</span>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="content flex-1 flex flex-col overflow-hidden">
+      <!-- Top Navigation -->
+      <header class="bg-white shadow-sm py-4 px-6 flex items-center justify-between">
+        <h1 class="text-2xl font-bold text-gray-800">Menu Management</h1>
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+          </div>
+          <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition">
+            <i class="fas fa-bell"></i>
+          </button>
+        </div>
+      </header>
+      
+      <!-- Dashboard Content -->
+      <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
+        <div id="dashboard" class="hidden">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-500">Total Sales</p>
+                  <h3 class="text-2xl font-bold">$12,345</h3>
+                </div>
+                <div class="bg-yellow-100 p-3 rounded-full">
+                  <i class="fas fa-dollar-sign text-yellow-500 text-xl"></i>
+                </div>
+              </div>
+              <p class="text-green-500 text-sm mt-2"><i class="fas fa-arrow-up"></i> 12% from last week</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-500">Total Orders</p>
+                  <h3 class="text-2xl font-bold">1,234</h3>
+                </div>
+                <div class="bg-blue-100 p-3 rounded-full">
+                  <i class="fas fa-shopping-cart text-blue-500 text-xl"></i>
+                </div>
+              </div>
+              <p class="text-green-500 text-sm mt-2"><i class="fas fa-arrow-up"></i> 8% from last week</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-500">Menu Items</p>
+                  <h3 class="text-2xl font-bold">42</h3>
+                </div>
+                <div class="bg-green-100 p-3 rounded-full">
+                  <i class="fas fa-utensils text-green-500 text-xl"></i>
+                </div>
+              </div>
+              <p class="text-gray-500 text-sm mt-2">5 categories</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-500">Low Stock Items</p>
+                  <h3 class="text-2xl font-bold">7</h3>
+                </div>
+                <div class="bg-red-100 p-3 rounded-full">
+                  <i class="fas fa-exclamation-triangle text-red-500 text-xl"></i>
+                </div>
+              </div>
+              <p class="text-red-500 text-sm mt-2">Needs attention</p>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm mb-6">
+            <h2 class="text-xl font-bold mb-4">Recent Orders</h2>
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#NES-1001</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">John Doe</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$14.50</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-06-15</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#NES-1002</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jane Smith</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$9.75</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Processing</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-06-15</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#NES-1003</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Robert Johnson</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$22.30</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Shipped</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-06-14</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Menu Management Section -->
+        <div id="menu-management">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Menu Items</h2>
+            <button id="add-menu-item" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition flex items-center">
+              <i class="fas fa-plus mr-2"></i> Add New Item
+            </button>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="menu-items">
+                  <!-- Menu items will be loaded here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Stock Management Section -->
+        <div id="stock-management" class="hidden">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Stock Management</h2>
+            <div class="flex space-x-2">
+              <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition flex items-center">
+                <i class="fas fa-file-export mr-2"></i> Export
+              </button>
+              <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition flex items-center">
+                <i class="fas fa-plus mr-2"></i> Add Stock
+              </button>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Stock</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alert Level</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Updated</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="stock-items">
+                  <!-- Stock items will be loaded here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+              <h3 class="text-lg font-bold mb-4">Low Stock Items</h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                  <div class="flex items-center">
+                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                      <i class="fas fa-coffee text-red-500"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-medium">Nescafe Espresso</h4>
+                      <p class="text-sm text-gray-500">Coffee</p>
+                    </div>
+                  </div>
+                  <span class="text-red-500 font-bold">2 left</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                  <div class="flex items-center">
+                    <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
+                      <i class="fas fa-mug-hot text-yellow-500"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-medium">Green Tea</h4>
+                      <p class="text-sm text-gray-500">Tea</p>
+                    </div>
+                  </div>
+                  <span class="text-yellow-500 font-bold">5 left</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+              <h3 class="text-lg font-bold mb-4">Recent Stock Updates</h3>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                      <i class="fas fa-arrow-up text-green-500 text-xs"></i>
+                    </div>
+                    <div>
+                      <h4 class="text-sm font-medium">Nitro Cold Brew</h4>
+                      <p class="text-xs text-gray-500">2 hours ago</p>
+                    </div>
+                  </div>
+                  <span class="text-green-500 text-sm font-bold">+20</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                      <i class="fas fa-arrow-down text-red-500 text-xs"></i>
+                    </div>
+                    <div>
+                      <h4 class="text-sm font-medium">Velvet Latte</h4>
+                      <p class="text-xs text-gray-500">5 hours ago</p>
+                    </div>
+                  </div>
+                  <span class="text-red-500 text-sm font-bold">-15</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  
+  <!-- Add Menu Item Modal -->
+  <div id="menu-item-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-2xl">
+      <div class="flex justify-between items-center border-b border-gray-200 p-6">
+        <h3 class="text-xl font-bold text-gray-800">Add New Menu Item</h3>
+        <button id="close-modal" class="text-gray-400 hover:text-gray-600">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="menu-item-form" class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Item Image</label>
+            <div class="mt-1 flex items-center">
+              <span class="inline-block h-24 w-24 rounded-md overflow-hidden bg-gray-100">
+                <img id="item-image-preview" src="https://via.placeholder.com/150" class="h-full w-full object-cover">
+              </span>
+              <button type="button" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                Upload
+              </button>
+            </div>
+          </div>
+          
+          <div>
+            <label for="item-name" class="block text-sm font-medium text-gray-700 mb-1">Item Name</label>
+            <input type="text" id="item-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+          </div>
+          
+          <div>
+            <label for="item-category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+            <select id="item-category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+              <option value="coffee">Coffee</option>
+              <option value="tea">Tea</option>
+              <option value="cold-drinks">Cold Drinks</option>
+              <option value="pastries">Pastries</option>
+              <option value="sandwiches">Sandwiches</option>
+            </select>
+          </div>
+          
+          <div>
+            <label for="item-price" class="block text-sm font-medium text-gray-700 mb-1">Price ($)</label>
+            <input type="number" id="item-price" step="0.01" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+          </div>
+          
+          <div>
+            <label for="item-stock" class="block text-sm font-medium text-gray-700 mb-1">Initial Stock</label>
+            <input type="number" id="item-stock" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+          </div>
+          
+          <div>
+            <label for="item-status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+            <select id="item-status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+          
+          <div class="col-span-2">
+            <label for="item-description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <textarea id="item-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"></textarea>
+          </div>
+        </div>
+        
+        <div class="mt-6 flex justify-end space-x-3">
+          <button type="button" id="cancel-modal" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition">
+            Cancel
+          </button>
+          <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition">
+            Save Item
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Edit Stock Modal -->
+  <div id="stock-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-md">
+      <div class="flex justify-between items-center border-b border-gray-200 p-6">
+        <h3 class="text-xl font-bold text-gray-800">Update Stock</h3>
+        <button id="close-stock-modal" class="text-gray-400 hover:text-gray-600">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="stock-form" class="p-6">
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Item</label>
+          <p class="font-medium" id="stock-item-name">Nescafe Espresso</p>
+        </div>
+        
+        <div class="mb-4">
+          <label for="current-stock" class="block text-sm font-medium text-gray-700 mb-1">Current Stock</label>
+          <p class="font-medium" id="current-stock-value">15</p>
+        </div>
+        
+        <div class="mb-4">
+          <label for="stock-action" class="block text-sm font-medium text-gray-700 mb-1">Action</label>
+          <select id="stock-action" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+            <option value="add">Add Stock</option>
+            <option value="subtract">Subtract Stock</option>
+            <option value="set">Set Stock</option>
+          </select>
+        </div>
+        
+        <div class="mb-4">
+          <label for="stock-amount" class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
+          <input type="number" id="stock-amount" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+        </div>
+        
+        <div class="mb-4">
+          <label for="stock-notes" class="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+          <textarea id="stock-notes" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"></textarea>
+        </div>
+        
+        <div class="mt-6 flex justify-end space-x-3">
+          <button type="button" id="cancel-stock-modal" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition">
+            Cancel
+          </button>
+          <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition">
+            Update Stock
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Sample data for menu items
+    const menuItems = [
+      {
+        id: 1,
+        name: "Nescafe Espresso",
+        category: "Coffee",
+        price: 3.50,
+        stock: 15,
+        status: "active",
+        image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+      },
+      {
+        id: 2,
+        name: "Creamy Cappuccino",
+        category: "Coffee",
+        price: 4.50,
+        stock: 22,
+        status: "active",
+        image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+      },
+      {
+        id: 3,
+        name: "Velvet Latte",
+        category: "Coffee",
+        price: 4.75,
+        stock: 18,
+        status: "active",
+        image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+      },
+      {
+        id: 4,
+        name: "English Breakfast Tea",
+        category: "Tea",
+        price: 3.50,
+        stock: 8,
+        status: "active",
+        image: "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+      },
+      {
+        id: 5,
+        name: "Iced Coffee",
+        category: "Cold Drinks",
+        price: 4.50,
+        stock: 5,
+        status: "active",
+        image: "https://images.unsplash.com/photo-1551029506-0807df4e2031?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+      }
+    ];
+
+    // Sample data for stock items
+    const stockItems = [
+      {
+        id: 1,
+        name: "Nescafe Espresso",
+        category: "Coffee",
+        currentStock: 15,
+        alertLevel: 10,
+        lastUpdated: "2023-06-14",
+        status: "ok"
+      },
+      {
+        id: 2,
+        name: "Creamy Cappuccino",
+        category: "Coffee",
+        currentStock: 22,
+        alertLevel: 10,
+        lastUpdated: "2023-06-14",
+        status: "ok"
+      },
+      {
+        id: 3,
+        name: "Velvet Latte",
+        category: "Coffee",
+        currentStock: 18,
+        alertLevel: 10,
+        lastUpdated: "2023-06-14",
+        status: "ok"
+      },
+      {
+        id: 4,
+        name: "English Breakfast Tea",
+        category: "Tea",
+        currentStock: 8,
+        alertLevel: 10,
+        lastUpdated: "2023-06-13",
+        status: "low"
+      },
+      {
+        id: 5,
+        name: "Iced Coffee",
+        category: "Cold Drinks",
+        currentStock: 5,
+        alertLevel: 10,
+        lastUpdated: "2023-06-13",
+        status: "low"
+      }
+    ];
+
+    // DOM Elements
+    const sidebar = document.querySelector('.sidebar');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelectorAll('nav a');
+    const contentSections = document.querySelectorAll('main > div');
+    const menuItemsTable = document.getElementById('menu-items');
+    const stockItemsTable = document.getElementById('stock-items');
+    const addMenuItemBtn = document.getElementById('add-menu-item');
+    const menuItemModal = document.getElementById('menu-item-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const cancelModalBtn = document.getElementById('cancel-modal');
+    const menuItemForm = document.getElementById('menu-item-form');
+    const stockModal = document.getElementById('stock-modal');
+    const closeStockModalBtn = document.getElementById('close-stock-modal');
+    const cancelStockModalBtn = document.getElementById('cancel-stock-modal');
+    const stockForm = document.getElementById('stock-form');
+
+    // Toggle sidebar
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('sidebar-collapsed');
+    });
+
+    // Navigation
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = link.getAttribute('href').substring(1);
+        
+        // Update active nav link
+        navLinks.forEach(navLink => {
+          navLink.classList.remove('active-nav');
+          navLink.querySelector('i').classList.remove('text-yellow-400');
+          navLink.querySelector('.nav-text').classList.remove('text-yellow-400');
+        });
+        
+        link.classList.add('active-nav');
+        link.querySelector('i').classList.add('text-yellow-400');
+        link.querySelector('.nav-text').classList.add('text-yellow-400');
+        
+        // Show corresponding content section
+        contentSections.forEach(section => {
+          section.classList.add('hidden');
+        });
+        document.getElementById(target).classList.remove('hidden');
+      });
+    });
+
+    // Load menu items
+    function loadMenuItems() {
+      menuItemsTable.innerHTML = '';
+      menuItems.forEach(item => {
+        const statusClass = item.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800';
+        const stockClass = item.stock < 10 ? 'text-red-500' : 'text-gray-500';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="px-6 py-4 whitespace-nowrap">
+            <img src="${item.image}" alt="${item.name}" class="h-10 w-10 rounded-full object-cover">
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="font-medium text-gray-900">${item.name}</div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.category}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$${item.price.toFixed(2)}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm ${stockClass}">${item.stock}</td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+              ${item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+            </span>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+            <button class="text-yellow-500 hover:text-yellow-700 mr-3 edit-item" data-id="${item.id}">
+                           <i class="fas fa-edit"></i>
+            </button>
+            <button class="text-red-500 hover:text-red-700 delete-item" data-id="${item.id}">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        `;
+        menuItemsTable.appendChild(row);
+      });
+    }
+
+    // Load stock items
+    function loadStockItems() {
+      stockItemsTable.innerHTML = '';
+      stockItems.forEach(item => {
+        const statusClass = item.status === 'ok' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="font-medium text-gray-900">${item.name}</div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.category}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.currentStock}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.alertLevel}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.lastUpdated}</td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+              ${item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+            </span>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+            <button class="text-yellow-500 hover:text-yellow-700 mr-3 edit-stock" data-id="${item.id}">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="text-red-500 hover:text-red-700 delete-stock" data-id="${item.id}">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        `;
+        stockItemsTable.appendChild(row);
+      });
+    }
+
+    // Event listeners for adding menu items
+    addMenuItemBtn.addEventListener('click', () => {
+      menuItemModal.classList.remove('hidden');
+    });
+
+    // Close modal
+    closeModalBtn.addEventListener('click', () => {
+      menuItemModal.classList.add('hidden');
+    });
+
+    cancelModalBtn.addEventListener('click', () => {
+      menuItemModal.classList.add('hidden');
+    });
+
+    // Handle menu item form submission
+    menuItemForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Logic to add new menu item
+      // After adding, you can call loadMenuItems() to refresh the table
+      menuItemModal.classList.add('hidden');
+    });
+
+    // Load initial data
+    loadMenuItems();
+    loadStockItems();
+  </script>
+</body>
+</html>
