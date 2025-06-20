@@ -76,6 +76,25 @@
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
+
+        .add-to-cart {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+        }
+
+        .add-to-cart.added {
+            animation: pulse 0.3s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 
@@ -104,9 +123,6 @@
                         <span id="cart-count" class="absolute -top-2 -right-2 bg-yellow-500 text-xs text-white rounded-full h-5 w-5 flex items-center justify-center">0</span>
                     </a>
                 </div>
-                <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded-full transition">
-                    Sign In
-                </button>
             </div>
 
             <!-- Mobile Menu Button -->
@@ -131,9 +147,6 @@
                 <a href="index.html#how-it-works" class="block text-white hover:text-yellow-400 transition">How It Works</a>
                 <a href="index.html#testimonials" class="block text-white hover:text-yellow-400 transition">Reviews</a>
                 <a href="index.html#contact" class="block text-white hover:text-yellow-400 transition">Contact</a>
-                <button class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-full transition">
-                    Sign In
-                </button>
             </div>
         </div>
     </nav>
@@ -150,86 +163,71 @@
     <div class="sticky-categories bg-white shadow-md py-4">
         <div class="container mx-auto px-6">
             <div class="flex overflow-x-auto space-x-6 pb-2 hide-scrollbar">
-                <a href="#coffee" class="whitespace-nowrap px-4 py-2 rounded-full bg-yellow-500 text-black font-medium">Coffee</a>
-                <a href="#tea" class="whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition">Tea</a>
-                <a href="#cold-drinks" class="whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition">Cold Drinks</a>
-                <a href="#pastries" class="whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition">Pastries</a>
-                <a href="#sandwiches" class="whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition">Sandwiches</a>
+                <a href="#hot-beverages" class="whitespace-nowrap px-4 py-2 rounded-full bg-yellow-500 text-black font-medium">Hot Beverages</a>
+                <a href="#cold-beverages" class="whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition">Cold Beverages</a>
+                <a href="#special-recipe" class="whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition">Special Recipe</a>
+                <a href="#add-on" class="whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition">Add On</a>
             </div>
         </div>
     </div>
 
     <!-- Menu Content -->
     <main class="container mx-auto px-6 py-12">
-       <!-- Coffee Category -->
-<section id="coffee" class="menu-category mb-16">
+       <!-- Hot Beverages Category -->
+<section id="hot-beverages" class="menu-category mb-16">
   <h2 class="text-3xl font-bold mb-8 flex items-center">
     <i class="fas fa-coffee text-yellow-500 mr-3"></i>
-    Premium Coffee Selection
+    Hot Beverages
   </h2>
   
   <div class="menu-slider hide-scrollbar">
-    <!-- Espresso -->
+    <!-- Blend & Brew Original -->
     <div class="menu-slide">
-      <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
-        <div class="relative overflow-hidden h-48">
-          <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-              alt="Espresso" class="w-full h-full object-cover food-image transition duration-300">
-          <div class="absolute top-4 right-4 bg-yellow-500 text-white text-sm font-bold px-3 py-1 rounded-full">
-            Classic
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+          <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/hotbeverage.png"
+                alt="Caramel Latte" class="w-full h-full object-cover food-image transition duration-300">
           </div>
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="text-xl font-bold text-gray-800">Nescafe Espresso</h3>
-            <span class="text-yellow-500 font-bold">$3.50</span>
-          </div>
-          <p class="text-gray-600 mb-4">Rich and intense, our signature espresso blend with a velvety crema.</p>
-          <div class="flex justify-between items-center">
-            <div class="flex items-center text-yellow-400">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-              <span class="text-gray-600 ml-2">4.7</span>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-xl font-bold text-gray-800">Blend & Brew</h3>
+              <span class="text-yellow-500 font-bold">RM 3.00</span>
             </div>
-           <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
-    data-name="Nescafe Espresso"
-    data-price="3.50">
-    Add <i class="fas fa-plus ml-1 text-xs"></i>
-</button>
-
+            <p class="text-gray-600 mb-4">This drink offers a balanced and bold coffee flavor with a classic roasted aroma, perfect for those who enjoy a simple, smooth cup of coffee without added sweetness.</p>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center text-yellow-400">
+              </div>
+             <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                    data-name="Blend & Brew Original" 
+                    data-price="RM 3.00"
+                    data-img="../nescafehub/assets/img/hotbeverage.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+            </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Cappuccino -->
+    <!-- Caramel Latte -->
     <div class="menu-slide">
       <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
         <div class="relative overflow-hidden h-48">
-          <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-              alt="Cappuccino" class="w-full h-full object-cover food-image transition duration-300">
+          <img src="../nescafehub/assets/img/hotbeverage.png"
+              alt="Caramel Latte" class="w-full h-full object-cover food-image transition duration-300">
         </div>
         <div class="p-6">
           <div class="flex justify-between items-start mb-2">
-            <h3 class="text-xl font-bold text-gray-800">Creamy Cappuccino</h3>
-            <span class="text-yellow-500 font-bold">$4.50</span>
+            <h3 class="text-xl font-bold text-gray-800">Caramel Latte</h3>
+            <span class="text-yellow-500 font-bold">RM 3.00</span>
           </div>
-          <p class="text-gray-600 mb-4">Perfect balance of espresso, steamed milk, and silky foam.</p>
+          <p class="text-gray-600 mb-4">A sweet and creamy coffee with a buttery caramel flavor, this latte has a rich, dessert-like aroma and a silky texture that makes it comforting and indulgent.</p>
           <div class="flex justify-between items-center">
             <div class="flex items-center text-yellow-400">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <span class="text-gray-600 ml-2">4.9</span>
             </div>
            <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
-        data-name="Creamy Cappuccino" 
-        data-price="4.50">
+        data-name="Caramel Latte" 
+        data-price="RM 3"
+        data-img="../nescafehub/assets/img/hotbeverage.png">
   Add <i class="fas fa-plus ml-1 text-xs"></i>
 </button>
           </div>
@@ -237,34 +235,26 @@
       </div>
     </div>
 
-    <!-- Latte -->
+    <!-- Hazelnut Latte -->
     <div class="menu-slide">
       <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
         <div class="relative overflow-hidden h-48">
-          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+          <img src="../nescafehub/assets/img/hotbeverage.png"
               alt="Latte" class="w-full h-full object-cover food-image transition duration-300">
-          <div class="absolute top-4 right-4 bg-blue-500 text-white text-sm font-bold px-3 py-1 rounded-full">
-            Best Seller
-          </div>
         </div>
         <div class="p-6">
           <div class="flex justify-between items-start mb-2">
-            <h3 class="text-xl font-bold text-gray-800">Velvet Latte</h3>
-            <span class="text-yellow-500 font-bold">$4.75</span>
+            <h3 class="text-xl font-bold text-gray-800">Hazelnut Latte</h3>
+            <span class="text-yellow-500 font-bold">RM 3.00</span>
           </div>
-          <p class="text-gray-600 mb-4">Smooth espresso with creamy steamed milk and delicate foam.</p>
+          <p class="text-gray-600 mb-4">With a smooth and nutty flavor, this latte blends the mild bitterness of coffee with the warm aroma of roasted hazelnuts, creating a cozy and satisfying drink.</p>
           <div class="flex justify-between items-center">
             <div class="flex items-center text-yellow-400">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <span class="text-gray-600 ml-2">5.0</span>
             </div>
            <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
-        data-name="Velvet Latte" 
-        data-price="4.75">
+        data-name="Hazelnut Latte" 
+        data-price="3.00"
+        data-img="../nescafehub/assets/img/hotbeverage.png">
   Add <i class="fas fa-plus ml-1 text-xs"></i>
 </button>
           </div>
@@ -272,34 +262,26 @@
       </div>
     </div>
 
-    <!-- Mocha -->
+    <!-- Mocha Latte -->
     <div class="menu-slide">
       <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
         <div class="relative overflow-hidden h-48">
-          <img src="https://images.unsplash.com/photo-1596079890744-c1a0462d4c1c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+          <img src="../nescafehub/assets/img/hotbeverage.png"
               alt="Mocha" class="w-full h-full object-cover food-image transition duration-300">
-          <div class="absolute top-4 right-4 bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-full">
-            Chocolate
-          </div>
         </div>
         <div class="p-6">
           <div class="flex justify-between items-start mb-2">
-            <h3 class="text-xl font-bold text-gray-800">Chocolate Mocha</h3>
-            <span class="text-yellow-500 font-bold">$5.25</span>
+            <h3 class="text-xl font-bold text-gray-800">Mocha Latte</h3>
+            <span class="text-yellow-500 font-bold">RM 3.00</span>
           </div>
-          <p class="text-gray-600 mb-4">Rich espresso blended with chocolate and topped with whipped cream.</p>
+          <p class="text-gray-600 mb-4">A delightful fusion of coffee and chocolate, the mocha latte has a rich cocoa aroma and a bittersweet taste that is both comforting and energizing.</p>
           <div class="flex justify-between items-center">
             <div class="flex items-center text-yellow-400">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-              <span class="text-gray-600 ml-2">4.6</span>
             </div>
            <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
-        data-name="Chocolate Mocha" 
-        data-price="5.25">
+        data-name="Mocha Latte" 
+        data-price="3.00"
+        data-img="../nescafehub/assets/img/hotbeverage.png">
   Add <i class="fas fa-plus ml-1 text-xs"></i>
 </button>
           </div>
@@ -307,462 +289,509 @@
       </div>
     </div>
 
-    <!-- Cold Brew -->
+    <!-- Cereal Milk Latte -->
     <div class="menu-slide">
-      <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
-        <div class="relative overflow-hidden h-48">
-          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-              alt="Cold Brew" class="w-full h-full object-cover food-image transition duration-300">
-          <div class="absolute top-4 right-4 bg-green-500 text-white text-sm font-bold px-3 py-1 rounded-full">
-            Iced
-          </div>
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="text-xl font-bold text-gray-800">Nitro Cold Brew</h3>
-            <span class="text-yellow-500 font-bold">$5.50</span>
-          </div>
-          <p class="text-gray-600 mb-4">Smooth cold brew infused with nitrogen for a creamy texture.</p>
-          <div class="flex justify-between items-center">
-            <div class="flex items-center text-yellow-400">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <span class="text-gray-600 ml-2">4.8</span>
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/hotbeverage.png"
+                alt="Mocha" class="w-full h-full object-cover food-image transition duration-300">
             </div>
-           <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
-        data-name="Nitro Cold Brew" 
-        data-price="5.50">
-  Add <i class="fas fa-plus ml-1 text-xs"></i>
-</button>
-          </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">Cereal Milk Latte</h3>
+                <span class="text-yellow-500 font-bold">RM 3.00</span>
+            </div>
+            <p class="text-gray-600 mb-4">Inspired by the nostalgic taste of cereal milk, this latte combines malty sweetness with mild coffee, giving it a soft aroma and a creamy, slightly grainy texture.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="Cereal Milk Latte" 
+                        data-price="3.00"
+                        data-img="../nescafehub/assets/img/hotbeverage.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
         </div>
-      </div>
     </div>
   </div>
 </section>
 
-        <!-- Tea Category -->
-        <section id="tea" class="menu-category mb-16">
-            <h2 class="text-3xl font-bold mb-8 flex items-center">
-                <i class="fas fa-mug-hot text-yellow-500 mr-3"></i>
-                Tea
-            </h2>
-            <div class="menu-slider hide-scrollbar">
-                <!-- Tea Item 1 -->
-                <div class="menu-slide">
-                    <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                alt="English Breakfast" class="w-full h-full object-cover food-image transition duration-300">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-gray-800">English Breakfast</h3>
-                                <span class="text-yellow-500 font-bold">$3.50</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">Robust black tea blend perfect with milk and sugar.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <span class="text-gray-600 ml-2">4.0</span>
-                                </div>
-                                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
-                                    data-name="English Breakfast Tea" data-price="3.50">
-                                    Add <i class="fas fa-plus ml-1 text-xs"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- Placeholder sections for other categories -->
+<section id="cold-beverages" class="menu-category mb-16">
+  <h2 class="text-3xl font-bold mb-8 flex items-center">
+    <i class="fas fa-glass-water text-blue-500 mr-3"></i>
+    Cold Beverages
+  </h2>
+  <div class="menu-slider hide-scrollbar">
 
-                <!-- Tea Item 2 -->
-                <div class="menu-slide">
-                    <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                alt="Green Tea" class="w-full h-full object-cover food-image transition duration-300">
-                            <div class="absolute top-4 right-4 bg-green-500 text-white text-sm font-bold px-3 py-1 rounded-full">
-                                Healthy
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-gray-800">Green Tea</h3>
-                                <span class="text-yellow-500 font-bold">$3.75</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">Light and refreshing with antioxidant properties.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span class="text-gray-600 ml-2">4.5</span>
-                                </div>
-                                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
-                                    data-name="Green Tea" data-price="3.75">
-                                    Add <i class="fas fa-plus ml-1 text-xs"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tea Item 3 -->
-                <div class="menu-slide">
-                    <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                alt="Chamomile" class="w-full h-full object-cover food-image transition duration-300">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-gray-800">Chamomile</h3>
-                                <span class="text-yellow-500 font-bold">$3.50</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">Soothing herbal tea perfect for relaxation.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-gray-600 ml-2">5.0</span>
-                                </div>
-                                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
-                                    data-name="Chamomile Tea" data-price="3.50">
-                                    Add <i class="fas fa-plus ml-1 text-xs"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tea Item 4 -->
-                <div class="menu-slide">
-                    <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                alt="Earl Grey" class="w-full h-full object-cover food-image transition duration-300">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-gray-800">Earl Grey</h3>
-                                <span class="text-yellow-500 font-bold">$4.00</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">Black tea flavored with bergamot oil.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <span class="text-gray-600 ml-2">4.0</span>
-                                </div>
-                                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
-                                    data-name="Earl Grey Tea" data-price="4.00">
-                                    Add <i class="fas fa-plus ml-1 text-xs"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Blend & Brew -->
+    <div class="menu-slide">
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/coldbeverage.png"
+                alt="Mocha" class="w-full h-full object-cover food-image transition duration-300">
             </div>
-        </section>
-
-        <!-- Cold Drinks Category -->
-        <section id="cold-drinks" class="menu-category mb-16">
-            <h2 class="text-3xl font-bold mb-8 flex items-center">
-                <i class="fas fa-glass-whiskey text-yellow-500 mr-3"></i>
-                Cold Drinks
-            </h2>
-            <div class="menu-slider hide-scrollbar">
-                <!-- Cold Drink Item 1 -->
-                <div class="menu-slide">
-                    <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="https://images.unsplash.com/photo-1551029506-0807df4e2031?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                alt="Iced Coffee" class="w-full h-full object-cover food-image transition duration-300">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-gray-800">Iced Coffee</h3>
-                                <span class="text-yellow-500 font-bold">$4.50</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">Chilled coffee served over ice with milk and sweetener.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span class="text-gray-600 ml-2">4.5</span>
-                                </div>
-                                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
-                                    data-name="Iced Coffee" data-price="4.50">
-                                    Add <i class="fas fa-plus ml-1 text-xs"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cold Drink Item 2 -->
-                <div class="menu-slide">
-                    <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                alt="Cold Brew" class="w-full h-full object-cover food-image transition duration-300">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-gray-800">Cold Brew</h3>
-                                <span class="text-yellow-500 font-bold">$5.00</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">Slow-steeped coffee for a smooth, less acidic taste.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-gray-600 ml-2">5.0</span>
-                                </div>
-                                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
-                                    data-name="Cold Brew" data-price="5.00">
-                                    Add <i class="fas fa-plus ml-1 text-xs"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cold Drink Item 3 -->
-                <div class="menu-slide">
-                    <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="https://images.unsplash.com/photo-1551029506-0807df4e2031?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                alt="Iced Tea" class="w-full h-full object-cover food-image transition duration-300">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-gray-800">Iced Tea</h3>
-                                <span class="text-yellow-500 font-bold">$3.50</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">Refreshing black tea served over ice with lemon.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <span class="text-gray-600 ml-2">4.0</span>
-                                </div>
-                                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
-                                    data-name="Iced Tea" data-price="3.50">
-                                    Add <i class="fas fa-plus ml-1 text-xs"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">Blend & Brew</h3>
+                <span class="text-yellow-500 font-bold">RM 3.50</span>
             </div>
-        </section>
-
-        <!-- More categories would follow the same pattern -->
-        <div class="text-center mt-12">
-            <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition">
-                Load More Menu Items
-            </button>
+            <p class="text-gray-600 mb-4">Served over ice, this version has a stronger, more pronounced coffee taste with a refreshing coolness that enhances its slightly bitter edge.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="Blend & Brew" 
+                        data-price="3.50"
+                        data-img="../nescafehub/assets/img/coldbeverage.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
         </div>
+    </div>
+
+    <!-- Caramel Latte -->
+    <div class="menu-slide">
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/coldbeverage.png"
+                alt="Mocha" class="w-full h-full object-cover food-image transition duration-300">
+            </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">Caramel Latte</h3>
+                <span class="text-yellow-500 font-bold">RM 3.50</span>
+            </div>
+            <p class="text-gray-600 mb-4">This iced drink is smooth and sweet, with mellow caramel notes and a creamy finish, making it a great option for warm days.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="Caramel Latte" 
+                        data-price="3.50"
+                        data-img="../nescafehub/assets/img/coldbeverage.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hazelnut Latte -->
+    <div class="menu-slide">
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/coldbeverage.png"
+                alt="Mocha" class="w-full h-full object-cover food-image transition duration-300">
+            </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">Hazelnut Latte</h3>
+                <span class="text-yellow-500 font-bold">RM 3.50</span>
+            </div>
+            <p class="text-gray-600 mb-4">Chilled and nutty, this version offers a refreshing twist on the hot hazelnut latte, maintaining its smooth, nutty flavor with a cooler, lighter body.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="Hazelnut Latte" 
+                        data-price="3.50"
+                        data-img="../nescafehub/assets/img/coldbeverage.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mocha Latte -->
+    <div class="menu-slide">
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/coldbeverage.png"
+                alt="Mocha" class="w-full h-full object-cover food-image transition duration-300">
+            </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">Mocha Latte</h3>
+                <span class="text-yellow-500 font-bold">RM 3.50</span>
+            </div>
+            <p class="text-gray-600 mb-4">Cool and chocolatey, this mocha combines the richness of cocoa with the kick of coffee, giving it a delicious, iced chocolate milk vibe with a hint of bitterness.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="Mocha Latte" 
+                        data-price="3.50"
+                        data-img="../nescafehub/assets/img/coldbeverage.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cereal Milk Latte -->
+    <div class="menu-slide">
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/coldbeverage.png"
+                alt="Mocha" class="w-full h-full object-cover food-image transition duration-300">
+            </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">Cereal Milk Latte</h3>
+                <span class="text-yellow-500 font-bold">RM 3.50</span>
+            </div>
+            <p class="text-gray-600 mb-4">This iced latte is sweet and comforting, with a taste reminiscent of breakfast cereal milk and a smooth, refreshing finish.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="Cereal Milk Latte" 
+                        data-price="3.50"
+                        data-img="../nescafehub/assets/img/coldbeverage.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Milky Iced Salted Caramel Latte -->
+    <div class="menu-slide">
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/coldbeverage.png"
+                alt="Mocha" class="w-full h-full object-cover food-image transition duration-300">
+            </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">Milky Iced Salted Caramel Latte</h3>
+                <span class="text-yellow-500 font-bold">RM 4.00</span>
+            </div>
+            <p class="text-gray-600 mb-4">Combining sweet caramel and a touch of salt, this latte offers a unique flavor balance with a buttery aroma and a creamy, refreshing texture.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="Milky Iced Salted Caramel Latte" 
+                        data-price="4.00"
+                        data-img="../nescafehub/assets/img/coldbeverage.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Milky Iced Choco Hazelnut Latte -->
+    <div class="menu-slide">
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/coldbeverage.png"
+                alt="Mocha" class="w-full h-full object-cover food-image transition duration-300">
+            </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">Milky Iced Choco Hazelnut Latte</h3>
+                <span class="text-yellow-500 font-bold">RM 4.00</span>
+            </div>
+            <p class="text-gray-600 mb-4">Tasting like a chilled Nutella-inspired coffee, this drink blends chocolate and hazelnut flavors into a rich, smooth latte that’s perfect for sweet tooth lovers.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="Milky Iced Choco Hazelnut Latte" 
+                        data-price="4.00"
+                        data-img="../nescafehub/assets/img/coldbeverage.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<section id="special-recipe" class="menu-category mb-16">
+  <h2 class="text-3xl font-bold mb-8 flex items-center">
+    <i class="fas fa-star text-purple-500 mr-3"></i>
+    Special Recipe
+  </h2>
+  <div class="menu-slider hide-scrollbar">
+    <!-- Hazelnut Nestum Latte -->
+    <div class="menu-slide">
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/specialrecipe.png"
+                alt="Mocha" class="w-full h-[15.9rem] object-cover food-image transition duration-300"
+                >
+            </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">NESCAFÉ Hazelnut Nestum Latte</h3>
+                <span class="text-yellow-500 font-bold">RM 6.00</span>
+            </div>
+            <p class="text-gray-600 mb-4">This special latte blends the nutty flavor of hazelnut with the malty, grainy taste of Nestum, resulting in a hearty and aromatic drink with a slightly thicker consistency.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="NESCAFÉ Hazelnut Nestum Latte" 
+                        data-price="6.00"
+                        data-img="../nescafehub/assets/img/specialrecipe.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Caramel KitKat Latte -->
+    <div class="menu-slide">
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/specialrecipe.png"
+                alt="Mocha" class="w-full h-[15.9rem] object-cover food-image transition duration-300"
+                >
+            </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">NESCAFÉ Caramel KitKat Latte</h3>
+                <span class="text-yellow-500 font-bold">RM 6.00</span>
+            </div>
+            <p class="text-gray-600 mb-4">Sweet and fun, this drink combines caramel-flavored coffee with the taste of KitKat, offering a chocolatey aroma and a unique, wafer-like finish.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="NESCAFÉ Caramel KitKat Latte" 
+                        data-price="6.00"
+                        data-img="../nescafehub/assets/img/specialrecipe.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Milky Iced Salted Caramel Latte -->
+    <div class="menu-slide">
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/specialrecipe.png"
+                alt="Mocha" class="w-full h-[15.9rem] object-cover food-image transition duration-300"
+                >
+            </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">NESCAFÉ Milky Iced Salted Caramel Latte</h3>
+                <span class="text-yellow-500 font-bold">RM 6.00</span>
+            </div>
+            <p class="text-gray-600 mb-4">A richer, creamier version of the original, this drink features a perfect harmony of sweet and salty caramel flavors in a smooth, icy blend.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="NESCAFÉ Milky Iced Salted Caramel Latte" 
+                        data-price="6.00"
+                        data-img="../nescafehub/assets/img/specialrecipe.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cereal Milk Smoothie -->
+    <div class="menu-slide">
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/specialrecipe.png"
+                alt="Mocha" class="w-full h-[15.9rem] object-cover food-image transition duration-300"
+                >
+            </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">NESCAFÉ Cereal Milk Smoothie</h3>
+                <span class="text-yellow-500 font-bold">RM 6.00</span>
+            </div>
+            <p class="text-gray-600 mb-4">This thick and creamy smoothie tastes just like cereal milk, blended with coffee to give a satisfying and comforting drink with a chilled twist.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="NESCAFÉ Cereal Milk Smoothie" 
+                        data-price="6.00"
+                        data-img="../nescafehub/assets/img/specialrecipe.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mocha Banana Smoothie -->
+    <div class="menu-slide">
+        <div class="food-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 h-full">
+            <div class="relative overflow-hidden h-48">
+            <img src="../nescafehub/assets/img/specialrecipe.png"
+                alt="Mocha" class="w-full h-[15.9rem] object-cover food-image transition duration-300"
+                >
+            </div>
+            <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">NESCAFÉ Mocha Banana Smoothie</h3>
+                <span class="text-yellow-500 font-bold">RM 6.00</span>
+            </div>
+            <p class="text-gray-600 mb-4">A rich and fruity drink, this smoothie mixes banana and chocolate flavors with coffee, resulting in a creamy, energizing blend that’s both sweet and refreshing.</p>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center text-yellow-400">
+                </div>
+                <button class="add-to-cart bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition flex items-center"
+                        data-name="NESCAFÉ Mocha Banana Smoothie" 
+                        data-price="6.00"
+                        data-img="../nescafehub/assets/img/specialrecipe.png">
+                Add <i class="fas fa-plus ml-1 text-xs"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</section>
+
+<section id="add-on" class="menu-category mb-16">
+  <h2 class="text-3xl font-bold mb-8 flex items-center">
+    <i class="fas fa-plus text-green-500 mr-3"></i>
+    Add On
+  </h2>
+  <div class="text-center py-12">
+    <p class="text-gray-500 text-lg">Coming Soon - Add-ons will be available here</p>
+  </div>
+</section>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- Column 1 -->
-                <div>
-                    <h3 class="text-xl font-bold mb-4 flex items-center">
-                        <i class="fas fa-coffee text-yellow-400 mr-2"></i>
-                        <span>Nescafe Hub</span>
-                    </h3>
-                    <p class="text-gray-400 mb-4">Delivering happiness with premium coffee and delicious pastries.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-yellow-400 transition">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-yellow-400 transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-yellow-400 transition">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-yellow-400 transition">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Column 2 -->
-                <div>
-                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="index.html" class="text-gray-400 hover:text-yellow-400 transition">Home</a></li>
-                        <li><a href="menu.html" class="text-gray-400 hover:text-yellow-400 transition">Menu</a></li>
-                        <li><a href="index.html#how-it-works" class="text-gray-400 hover:text-yellow-400 transition">How It Works</a></li>
-                        <li><a href="index.html#testimonials" class="text-gray-400 hover:text-yellow-400 transition">Testimonials</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Blog</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3 -->
-                <div>
-                    <h3 class="text-lg font-bold mb-4">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Contact Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">FAQs</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Terms of Service</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Refund Policy</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4 -->
-                <div>
-                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt text-yellow-400 mt-1 mr-2"></i>
-                            <span>Maharashtra, India</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone-alt text-yellow-400 mr-2"></i>
-                            <span>+91 87287282**</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope text-yellow-400 mr-2"></i>
-                            <span>info@nescafehub.com</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 Nescafe Hub. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Cart notification -->
+    <div id="cart-notification" class="fixed top-20 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+        <i class="fas fa-check mr-2"></i>
+        Item added to cart!
+    </div>
 
     <!-- JavaScript -->
     <script>
-
-           // Update cart count
- function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const counter = document.getElementById('cart-count');
-    if (counter) counter.textContent = count;
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    updateCartCount();
-
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-      button.addEventListener('click', () => {
-        const name = button.dataset.name;
-        const price = parseFloat(button.dataset.price);
-        const image = button.dataset.image;
-
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        const existingItem = cart.find(item => item.name === name);
-        if (existingItem) {
-          existingItem.quantity += 1;
-        } else {
-          cart.push({ name, price, quantity: 1, image });
+        // Load cart from localStorage
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById("cart-count").textContent = count;
+            document.getElementById("cart-count-mobile").textContent = count;
         }
-
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-
-        // Button feedback
-        button.innerHTML = '<i class="fas fa-check"></i> Added';
-        button.classList.remove('bg-yellow-500');
-        button.classList.add('bg-green-500');
-        setTimeout(() => {
-          button.innerHTML = 'Add <i class="fas fa-plus ml-1 text-xs"></i>';
-          button.classList.remove('bg-green-500');
-          button.classList.add('bg-yellow-500');
-        }, 1000);
-      });
-    });
-  });
-
-    // Mobile menu toggle
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    mobileMenuButton.addEventListener('click', function () {
-        mobileMenu.classList.toggle('open');
-
-        // Change icon based on menu state
-        if (mobileMenu.classList.contains('open')) {
-            mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
-        } else {
-            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+    
+        function showNotification(message) {
+            const notification = document.getElementById("cart-notification");
+            notification.querySelector("span").textContent = message;
+            notification.classList.remove("translate-x-full");
+            setTimeout(() => {
+                notification.classList.add("translate-x-full");
+            }, 2000);
         }
-    });
-
-    // Smooth scrolling for category links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
+    
+        function addToCart(name, priceStr, img) {
+            const price = parseFloat(priceStr.replace("RM", "").trim());
+            const existing = cart.find(item => item.name === name);
+    
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ name, price, img, quantity: 1 });
+            }
+    
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartCount();
+            showNotification(`${name} added to cart!`);
+        }
+    
+        document.addEventListener("DOMContentLoaded", () => {
+            updateCartCount();
+    
+            document.querySelectorAll(".add-to-cart").forEach(button => {
+                button.addEventListener("click", e => {
+                    e.preventDefault();
+                    const name = button.dataset.name;
+                    const price = button.dataset.price;
+                    const img = button.dataset.img;
+    
+                    if (!name || !price) return;
+    
+                    // Visual feedback
+                    button.classList.add("added");
+                    const original = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check mr-1"></i> Added!';
+                    button.disabled = true;
+    
+                    addToCart(name, price, img);
+    
+                    setTimeout(() => {
+                        button.innerHTML = original;
+                        button.disabled = false;
+                        button.classList.remove("added");
+                    }, 1000);
+                });
             });
-        });
-    });
-
-    // Highlight active category in navigation
-    const sections = document.querySelectorAll('.menu-category');
-    const navLinks = document.querySelectorAll('.sticky-categories a');
-
-    window.addEventListener('scroll', () => {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 150;
-            const sectionHeight = section.clientHeight;
-            
-            if (pageYOffset >= sectionTop) {
-                current = section.getAttribute('id');
+    
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById("mobile-menu-button");
+            const mobileMenu = document.getElementById("mobile-menu");
+    
+            mobileMenuButton.addEventListener("click", () => {
+                mobileMenu.classList.toggle("open");
+                mobileMenuButton.innerHTML = mobileMenu.classList.contains("open") ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+    
+            // Smooth scroll & nav highlight
+            const sections = document.querySelectorAll(".menu-category");
+            const navLinks = document.querySelectorAll(".sticky-categories a");
+    
+            function updateActiveNavLink() {
+                let current = '';
+                sections.forEach(section => {
+                    const top = section.offsetTop - 150;
+                    if (window.pageYOffset >= top) {
+                        current = section.id;
+                    }
+                });
+    
+                navLinks.forEach(link => {
+                    link.classList.remove("bg-yellow-500", "text-black");
+                    link.classList.add("bg-gray-200", "hover:bg-gray-300");
+                    if (link.getAttribute("href").substring(1) === current) {
+                        link.classList.add("bg-yellow-500", "text-black");
+                        link.classList.remove("bg-gray-200", "hover:bg-gray-300");
+                    }
+                });
             }
+    
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+    
+            window.addEventListener("scroll", updateActiveNavLink);
+            updateActiveNavLink();
         });
-
-        navLinks.forEach(link => {
-            link.classList.remove('bg-yellow-500', 'text-black');
-            link.classList.add('bg-gray-200', 'hover:bg-gray-300');
-            
-            if (link.getAttribute('href').includes(current)) {
-                link.classList.remove('bg-gray-200', 'hover:bg-gray-300');
-                link.classList.add('bg-yellow-500', 'text-black');
-            }
-        });
-    });
     </script>
 </body>
 
