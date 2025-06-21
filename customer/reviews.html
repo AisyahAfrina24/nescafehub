@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews - Nescafé Hub UiTM Merbok</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar {
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+
+        .menu-category {
+            scroll-margin-top: 100px;
+        }
+
+        .food-card:hover .food-image {
+            transform: scale(1.05);
+        }
+
+        .sticky-categories {
+            position: sticky;
+            top: 80px;
+            z-index: 10;
+        }
+
+        .menu-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1rem;
+            padding: 1rem 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .menu-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .menu-slide {
+            flex: 0 0 300px;
+            scroll-snap-align: start;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .add-to-cart {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+        }
+
+        .add-to-cart.added {
+            animation: pulse 0.3s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-amber-50 to-orange-100 min-h-screen">
+    <!-- Header -->
+    <!-- Navigation Bar -->
+    <nav class="navbar fixed w-full z-50 px-8 py-3 md:px-20 bg-gray-900">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <a href="#" class="text-white text-2xl font-bold flex items-center">
+                    <i class="fas fa-utensils text-yellow-400 mr-2"></i>
+                    <span>Nescafe Hub</span>
+                </a>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-white hover:text-yellow-400 transition">Home</a>
+                <a href="#submit-review" class="text-white hover:text-yellow-400 transition">Write a Review</a>
+                <a href="#reviews" class="text-white hover:text-yellow-400 transition">Review</a>
+                <div class="relative">
+                    <a href="cart.html" class="text-white hover:text-yellow-400 transition relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-yellow-500 text-xs text-white rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Share Your Experience</h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">Help us serve you better by sharing your feedback about Nescafé Hub at UiTM Merbok</p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+                <div class="p-6">
+                    <div class="text-3xl font-bold text-amber-600 mb-2" id="total-reviews">127</div>
+                    <p class="text-gray-600">Total Reviews</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-3xl font-bold text-amber-600 mb-2">4.8</div>
+                    <div class="flex justify-center items-center space-x-1 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 text-sm mt-1">Average Rating</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-3xl font-bold text-amber-600 mb-2">98%</div>
+                    <p class="text-gray-600">Satisfaction Rate</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-3xl font-bold text-amber-600 mb-2">RM4</div>
+                    <p class="text-gray-600">Average Price</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Submit Review Section -->
+    <section id="submit-review" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-2xl mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Write a Review</h2>
+                    <p class="text-gray-600">Share your experience with fellow students</p>
+                </div>
+
+                <form id="review-form" class="bg-white p-8 rounded-xl shadow-lg hover-lift">
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-semibold mb-3">Your Rating</label>
+                        <div class="star-rating">
+                            <input type="radio" name="rating" value="5" id="star5">
+                            <label for="star5"><i class="fas fa-star"></i></label>
+                            <input type="radio" name="rating" value="4" id="star4">
+                            <label for="star4"><i class="fas fa-star"></i></label>
+                            <input type="radio" name="rating" value="3" id="star3">
+                            <label for="star3"><i class="fas fa-star"></i></label>
+                            <input type="radio" name="rating" value="2" id="star2">
+                            <label for="star2"><i class="fas fa-star"></i></label>
+                            <input type="radio" name="rating" value="1" id="star1">
+                            <label for="star1"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 font-semibold mb-2">Your Name</label>
+                            <input type="text" id="name" name="name" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                        </div>
+                        <div>
+                            <label for="customer-type" class="block text-gray-700 font-semibold mb-2">Customer Type</label>
+                            <select id="customer-type" name="customer-type" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                                <option value="">Select...</option>
+                                <option value="New Customer">New Customer</option>
+                                <option value="Regular Customer">Regular Customer</option>
+                                <option value="Loyal Customer">Loyal Customer</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="favorite-drink" class="block text-gray-700 font-semibold mb-2">Favorite Drink (Optional)</label>
+                        <input type="text" id="favorite-drink" name="favorite-drink" placeholder="e.g., Iced Caramel Latte"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="review-text" class="block text-gray-700 font-semibold mb-2">Your Review</label>
+                        <textarea id="review-text" name="review-text" rows="5" required placeholder="Share your experience..."
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all resize-none"></textarea>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="recommend" name="recommend" class="mr-2 text-amber-600">
+                            <span class="text-gray-700">I would recommend Nescafé Hub to other students</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" 
+                        class="w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-amber-700 hover:to-orange-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                        <i class="fas fa-paper-plane mr-2"></i>Submit Review
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Existing Reviews Section -->
+    <section id="reviews" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">What Our Customers Say</h2>
+                <p class="text-gray-600">Recent reviews from our valued customers</p>
+            </div>
+
+            <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Existing testimonials will be populated here -->
+            </div>
+
+            <div class="text-center mt-12">
+                <button id="load-more" class="bg-amber-600 text-white px-8 py-3 rounded-lg hover:bg-amber-700 transition-colors">
+                    Load More Reviews
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Nescafé Hub UiTM Merbok. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-8 rounded-xl max-w-md mx-4 text-center">
+            <div class="text-green-500 text-5xl mb-4">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Thank You!</h3>
+            <p class="text-gray-600 mb-6">Your review has been submitted successfully.</p>
+            <button id="close-modal" class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition-colors">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Existing reviews data
+        const existingReviews = [
+            {
+                name: "Ainnil Soffiyah",
+                customerType: "Regular Customer",
+                rating: 5,
+                review: "Nescafé Hub at UiTM Merbok is such a hidden gem on campus! The iced caramel latte was super refreshing, especially in this hot weather. Prices are student-friendly — I got my drink for just RM4! 😍",
+                avatar: "../assets/img/p1.png"
+            },
+            {
+                name: "Alif Najmi",
+                customerType: "New Customer",
+                rating: 4.5,
+                review: "It's a great spot to recharge between classes — whether you need a caffeine boost before lectures or just a moment to relax. The drinks are prepared with care, and the quality really surprised me for a student-run kiosk.",
+                avatar: "../assets/img/p2.png"
+            },
+            {
+                name: "Puteri Emiliya",
+                customerType: "Loyal Customer",
+                rating: 5,
+                review: "I do wish there were more snack options or combo sets, but overall, it's a great spot to chill between classes. Definitely beats walking all the way to the main café just for a quick caffeine fix.",
+                avatar: "../assets/img/p3.png"
+            }
+        ];
+
+        let newReviews = [];
+
+        // Function to render stars
+        function renderStars(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 !== 0;
+            let starsHTML = '';
+            
+            for (let i = 0; i < fullStars; i++) {
+                starsHTML += '<i class="fas fa-star"></i>';
+            }
+            
+            if (hasHalfStar) {
+                starsHTML += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            const emptyStars = 5 - Math.ceil(rating);
+            for (let i = 0; i < emptyStars; i++) {
+                starsHTML += '<i class="far fa-star"></i>';
+            }
+            
+            return starsHTML;
+        }
+
+        // Function to render review card
+        function renderReviewCard(review) {
+            return `
+                <div class="bg-white p-6 rounded-xl shadow-md hover-lift fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center text-yellow-400 mr-2">
+                            ${renderStars(review.rating)}
+                        </div>
+                        <span class="text-gray-600 text-sm">${review.rating}</span>
+                    </div>
+                    <p class="text-gray-700 mb-6">"${review.review}"</p>
+                    <div class="flex items-center">
+                        <img src="${review.avatar}" alt="${review.name}" class="w-12 h-12 rounded-full mr-4 object-cover">
+                        <div>
+                            <h4 class="font-bold text-gray-800">${review.name}</h4>
+                            <p class="text-gray-600 text-sm">${review.customerType}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load initial reviews
+        function loadReviews() {
+            const container = document.getElementById('reviews-container');
+            const allReviews = [...existingReviews, ...newReviews];
+            container.innerHTML = allReviews.map(review => renderReviewCard(review)).join('');
+            
+            // Update total reviews count
+            document.getElementById('total-reviews').textContent = allReviews.length;
+        }
+
+        // Handle form submission
+        document.getElementById('review-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const rating = formData.get('rating');
+            const name = formData.get('name');
+            const customerType = formData.get('customer-type');
+            const reviewText = formData.get('review-text');
+            
+            if (!rating) {
+                alert('Please select a rating');
+                return;
+            }
+            
+            // Generate random avatar
+            const avatars = [
+                'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face'
+            ];
+            
+            const newReview = {
+                name: name,
+                customerType: customerType,
+                rating: parseInt(rating),
+                review: reviewText,
+                avatar: avatars[Math.floor(Math.random() * avatars.length)]
+            };
+            
+            newReviews.unshift(newReview);
+            loadReviews();
+            
+            // Show success modal
+            document.getElementById('success-modal').classList.remove('hidden');
+            
+            // Reset form
+            e.target.reset();
+        });
+
+        // Close modal
+        document.getElementById('close-modal').addEventListener('click', function() {
+            document.getElementById('success-modal').classList.add('hidden');
+        });
+
+        // Load more reviews (placeholder functionality)
+        document.getElementById('load-more').addEventListener('click', function() {
+            // In a real application, this would load more reviews from a server
+            alert('No more reviews to load');
+        });
+
+        // Initialize
+        loadReviews();
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

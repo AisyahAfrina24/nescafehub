@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Nescafe Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+    <style>
+    .font-poppins { font-family: 'Poppins', sans-serif; }
+    .sidebar { transition: width 0.3s ease; }
+    .content { transition: margin-left 0.3s ease; }
+    .fade-in { animation: fadeIn 0.3s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal-enter { animation: modalEnter 0.3s ease-out; }
+    @keyframes modalEnter { 
+      from { opacity: 0; transform: scale(0.95); } 
+      to { opacity: 1; transform: scale(1); } 
+    }
+  </style>
+</head>
+<body class="font-poppins bg-gray-100">
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <div class="sidebar bg-gray-900 text-white w-64 flex-shrink-0 flex flex-col">
+      <div class="p-4 flex items-center justify-between border-b border-gray-800">
+        <div class="flex items-center">
+          <i class="fas fa-coffee text-yellow-400 text-2xl mr-3"></i>
+          <span class="logo-text text-xl font-bold">Nescafe Admin</span>
+        </div>
+        <button class="menu-toggle text-gray-400 hover:text-white focus:outline-none">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+      
+      <div class="flex-1 overflow-y-auto py-4">
+        <nav>
+          <ul class="space-y-1 px-2">
+            <li>
+              <a href="../admin/index.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition active-nav">
+                <i class="fas fa-tachometer-alt text-yellow-400 w-6 text-center"></i>
+                <span class="nav-text ml-3 text-yellow-400">Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="../admin/menu-management.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-utensils text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Menu Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="../admin/stock-management.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-boxes text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Stock Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="../admin/order-management.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-shopping-cart text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Orders</span>
+              </a>
+            </li>
+            <li>
+              <a href="../admin/staff-management.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-users text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Staff Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="../admin/reports-management.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-chart-bar text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Reports</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      
+      <div class="p-4 border-t border-gray-800">
+        <div class="flex items-center">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Admin" class="w-10 h-10 rounded-full">
+          <div class="ml-3 nav-text">
+            <div class="font-medium">Admin User</div>
+            <div class="text-sm text-gray-400">Super Admin</div>
+          </div>
+        </div>
+        <a href="auth.html" class="mt-4 flex items-center text-gray-400 hover:text-white transition">
+          <i class="fas fa-sign-out-alt w-6 text-center"></i>
+          <span class="nav-text ml-3">Logout</span>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="content flex-1 flex flex-col overflow-hidden">
+      <!-- Top Navigation -->
+      <header class="bg-white shadow-sm py-4 px-6 flex items-center justify-between">
+        <h1 class="text-2xl font-bold text-gray-800">Dashboard</h1>
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+          </div>
+          <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition">
+            <i class="fas fa-bell"></i>
+          </button>
+        </div>
+      </header>
+      
+      <!-- Dashboard Content -->
+      <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+          <div class="bg-white p-6 rounded-xl shadow-sm">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500">Total Sales</p>
+                <h3 class="text-2xl font-bold">$12,345</h3>
+              </div>
+              <div class="bg-yellow-100 p-3 rounded-full">
+                <i class="fas fa-dollar-sign text-yellow-500 text-xl"></i>
+              </div>
+            </div>
+            <p class="text-green-500 text-sm mt-2"><i class="fas fa-arrow-up"></i> 12% from last week</p>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500">Total Orders</p>
+                <h3 class="text-2xl font-bold">1,234</h3>
+              </div>
+              <div class="bg-blue-100 p-3 rounded-full">
+                <i class="fas fa-shopping-cart text-blue-500 text-xl"></i>
+              </div>
+            </div>
+            <p class="text-green-500 text-sm mt-2"><i class="fas fa-arrow-up"></i> 8% from last week</p>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500">Menu Items</p>
+                <h3 class="text-2xl font-bold">42</h3>
+              </div>
+              <div class="bg-green-100 p-3 rounded-full">
+                <i class="fas fa-utensils text-green-500 text-xl"></i>
+              </div>
+            </div>
+            <p class="text-gray-500 text-sm mt-2">5 categories</p>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500">Low Stock Items</p>
+                <h3 class="text-2xl font-bold">7</h3>
+              </div>
+              <div class="bg-red-100 p-3 rounded-full">
+                <i class="fas fa-exclamation-triangle text-red-500 text-xl"></i>
+              </div>
+            </div>
+            <p class="text-red-500 text-sm mt-2">Needs attention</p>
+          </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-sm mb-6">
+          <h2 class="text-xl font-bold mb-4">Recent Orders</h2>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#NES-1001</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">John Doe</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$14.50</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-06-15</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#NES-1002</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jane Smith</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$9.75</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Processing</span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-06-15</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#NES-1003</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Robert Johnson</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$22.30</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Shipped</span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-06-14</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/sidebar.js"></script>
+  <script>
+    // Load sidebar
+    loadSidebar('dashboard.html');
+  </script>
+  </div>
+
+  <script src="js/navigation.js"></script>
+  <script src="js/sidebar.js"></script>
+</body>
+</html>

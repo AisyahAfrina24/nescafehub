@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delicious - Food Delivery</title>
+    <title>Nescafe Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -86,17 +86,10 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#" class="text-white hover:text-yellow-400 transition">Home</a>
-                <a href="menu.html" class="text-white hover:text-yellow-400 transition">Menu</a>
-                <a href="#how-it-works" class="text-white hover:text-yellow-400 transition">How It Works</a>
-                <a href="#testimonials" class="text-white hover:text-yellow-400 transition">Reviews</a>
+                <a href="#home" class="text-white hover:text-yellow-400 transition">Home</a>
+                <a href="#featured" class="text-white hover:text-yellow-400 transition">Menu</a>
+                <a href="#testimonials" class="text-white hover:text-yellow-400 transition">Review</a>
                 <a href="#contact" class="text-white hover:text-yellow-400 transition">Contact</a>
-                <div class="relative">
-                    <a href="cart.html" class="text-white hover:text-yellow-400 transition relative">
-                        <i class="fas fa-shopping-cart text-xl"></i>
-                        <span id="cart-count" class="absolute -top-2 -right-2 bg-yellow-500 text-xs text-white rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                    </a>
-                </div>
               <a href="auth.html" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded-full transition">
   Sign In
 </a>
@@ -122,7 +115,6 @@
             <div class="px-4 py-3 space-y-4">
                 <a href="#" class="block text-white hover:text-yellow-400 transition">Home</a>
                 <a href="#featured" class="block text-white hover:text-yellow-400 transition">Menu</a>
-                <a href="#how-it-works" class="block text-white hover:text-yellow-400 transition">How It Works</a>
                 <a href="#testimonials" class="block text-white hover:text-yellow-400 transition">Reviews</a>
                 <a href="#contact" class="block text-white hover:text-yellow-400 transition">Contact</a>
                 <button
@@ -135,7 +127,7 @@
 
 
     <!-- Hero Section -->
-    <section class="relative h-screen w-screen flex items-center justify-center overflow-hidden">
+    <section id="home" class="relative h-screen w-screen flex items-center justify-center overflow-hidden">
         <!-- Video Background -->
         <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0">
             <source src="burger.mp4" type="video/mp4" />
@@ -158,14 +150,17 @@
                     Get your favorite meals delivered hot & quick. Order from top-rated restaurants near you.
                 </p>
                 <div class="flex flex-row sm:flex-row gap-4 justify-center md:justify-start">
-                    <button
-                        class="bg-yellow-400 hover:bg-yellow-500 text-black font-poppins font-semibold py-3 px-6 rounded-full shadow-md hover:shadow-yellow-400/60 transition-all duration-300 hover:scale-105">
-                        Order Now <i class="fas fa-utensils ml-2"></i>
-                    </button>
-                    <button
-                        class="bg-transparent border border-white text-white hover:bg-white hover:text-black font-poppins py-3 px-6 rounded-full transition-all duration-300 hover:scale-105">
-                        View Menu <i class="fas fa-book-open ml-2"></i>
-                    </button>
+                    <a href="cart.html">
+                        <button
+                            class="bg-yellow-400 hover:bg-yellow-500 text-black font-poppins font-semibold py-3 px-6 rounded-full shadow-md hover:shadow-yellow-400/60 transition-all duration-300 hover:scale-105">
+                            Order Now <i class="fas fa-utensils ml-2"></i>
+                        </button>
+                    </a>
+                    <a href="menu.html">
+                        <button class="bg-transparent border border-white text-white hover:bg-white hover:text-black font-poppins py-3 px-6 rounded-full transition-all duration-300 hover:scale-105">
+                          View Menu <i class="fas fa-book-open ml-2"></i>
+                        </button>
+                      </a>                      
                 </div>
             </div>
 
@@ -173,10 +168,10 @@
             <div
                 class="w-full mb-5 md:mt-96 md:w-1/2 flex flex-col items-center md:items-end space-y-4 text-gray-100 font-poppins">
                 <div class="bg-white/10 backdrop-blur-sm p-3 rounded-xl border border-white/20 w-full sm:w-72 text-sm">
-                    🔥 Trending: Spicy Cheese Burger
+                    🔥 Trending: NESCAFÉ Caramel KitKat Latte
                 </div>
                 <div class="bg-white/10 backdrop-blur-sm p-3 rounded-xl border border-white/20 w-full sm:w-72 text-sm">
-                    ⭐ Top Rated: Veggie Delight Pizza
+                    ⭐ Top Rated: NESCAFÉ Milky Iced Salted Caramel Latte
                 </div>
             </div>
         </div>
@@ -190,161 +185,93 @@
     </section>
 
 
-
-    <!-- Featured Items Section -->
-    <section id="featured" class="py-20 bg-gray-100 md:px-20">
-        <section id="featured" class="py-20 bg-gray-100 md:px-20">
-  <div class="container mx-auto px-6">
+<!-- Featured Items Section -->
+<section id="featured" class="py-20 bg-gray-100 md:px-16">
+  <div class="container mx-auto px-6 max-w-screen-xl">
     <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Premium Coffee Selection</h2>
-      <p class="text-gray-600 max-w-2xl mx-auto">Discover our most popular coffee drinks crafted with premium beans.</p>
+      <h2 class="text-4xl font-bold text-gray-800 mb-4">Our Coffee Selection</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+        Discover our most popular coffee drinks crafted with premium Nescafe.
+      </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <!-- Coffee Item 1 -->
-      <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+      <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2">
         <div class="relative">
-          <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
-               alt="Espresso" class="w-full h-64 object-cover">
+          <img src="../assets/img/hotbeverage.png" 
+               alt="Espresso" class="w-full h-56 object-cover object-center">
           <div class="absolute top-4 right-4 bg-yellow-500 text-white text-sm font-bold px-3 py-1 rounded-full">
             Classic
           </div>
         </div>
         <div class="p-6">
           <div class="flex justify-between items-start">
-            <h3 class="text-xl font-bold text-gray-800">Nescafe Espresso</h3>
-            <span class="text-yellow-500 font-bold">$3.50</span>
+            <h3 class="text-xl font-bold text-gray-800">🔥 HOT BEVERAGES</h3>
+            <span class="text-yellow-500 font-bold">RM 3.00</span>
           </div>
-          <p class="text-gray-600 mt-2">Rich and intense, our signature espresso blend with a velvety crema.</p>
-          <div class="mt-4 flex justify-between items-center">
-            <div class="flex items-center text-yellow-400">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-              <span class="text-gray-600 ml-2">4.7</span>
-            </div>
-            <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition">
-              Add to Cart
-            </button>
-          </div>
+          <p class="text-gray-600 mt-3 text-base">
+            Enjoy a warm cup of your favourite Nescafe. From rich black coffee to smooth and creamy blends — perfect for any time of the day.
+          </p>
         </div>
       </div>
 
       <!-- Coffee Item 2 -->
-      <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+      <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2">
         <div class="relative">
-          <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
-               alt="Cappuccino" class="w-full h-64 object-cover">
+          <img src="../assets/img/coldbeverage.png" 
+               alt="Cappuccino" class="w-full h-56 object-cover object-center">
         </div>
         <div class="p-6">
           <div class="flex justify-between items-start">
-            <h3 class="text-xl font-bold text-gray-800">Creamy Cappuccino</h3>
-            <span class="text-yellow-500 font-bold">$4.50</span>
+            <h3 class="text-xl font-bold text-gray-800">❄️ COLD BEVERAGES</h3>
+            <span class="text-yellow-500 font-bold">RM 3.50 - RM 4.00</span>
           </div>
-          <p class="text-gray-600 mt-2">Perfect balance of espresso, steamed milk, and silky foam.</p>
-          <div class="mt-4 flex justify-between items-center">
-            <div class="flex items-center text-yellow-400">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <span class="text-gray-600 ml-2">4.9</span>
-            </div>
-            <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition">
-              Add to Cart
-            </button>
-          </div>
+          <p class="text-gray-600 mt-3 text-base">
+            Cool down with our refreshing Nescafe cold drinks. Smooth, chilled, and perfect for a hot day.
+          </p>
         </div>
       </div>
 
       <!-- Coffee Item 3 -->
-      <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+      <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2">
         <div class="relative">
-          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
-               alt="Latte" class="w-full h-64 object-cover">
+          <img src="../assets/img/specialrecipe.png" 
+               alt="Latte" class="w-full h-56 object-cover object-center">
           <div class="absolute top-4 right-4 bg-blue-500 text-white text-sm font-bold px-3 py-1 rounded-full">
             Best Seller
           </div>
         </div>
         <div class="p-6">
           <div class="flex justify-between items-start">
-            <h3 class="text-xl font-bold text-gray-800">Velvet Latte</h3>
-            <span class="text-yellow-500 font-bold">$4.75</span>
+            <h3 class="text-xl font-bold text-gray-800">🍧 SPECIAL RECIPE</h3>
+            <span class="text-yellow-500 font-bold">RM 6.00</span>
           </div>
-          <p class="text-gray-600 mt-2">Smooth espresso with creamy steamed milk and delicate foam.</p>
-          <div class="mt-4 flex justify-between items-center">
-            <div class="flex items-center text-yellow-400">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <span class="text-gray-600 ml-2">5.0</span>
-            </div>
-            <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full transition">
-              Add to Cart
-            </button>
-          </div>
+          <p class="text-gray-600 mt-3 text-base">
+            Unique Nescafe blends crafted with a twist — rich, creamy, and full of surprise in every sip.
+          </p>
         </div>
       </div>
     </div>
 
     <div class="text-center mt-12">
-      <a href="menu.html" class="border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-white font-bold py-3 px-8 rounded-full transition-all duration-300">
+      <a href="menu.html" class="border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-white font-bold py-3 px-8 rounded-full transition-all duration-300 text-base">
         View Full Menu
       </a>
     </div>
   </div>
 </section>
 
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">How It Works</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Get your favorite food delivered in just 3 simple steps</p>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Step 1 -->
-                <div class="text-center p-6 rounded-lg hover:bg-gray-50 transition">
-                    <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-search text-yellow-500 text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">1. Choose Your Food</h3>
-                    <p class="text-gray-600">Browse through our menu and select your favorite dishes.</p>
-                </div>
 
-                <!-- Step 2 -->
-                <div class="text-center p-6 rounded-lg hover:bg-gray-50 transition">
-                    <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-credit-card text-yellow-500 text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">2. Make Payment</h3>
-                    <p class="text-gray-600">Pay securely online with various payment methods available.</p>
-                </div>
 
-                <!-- Step 3 -->
-                <div class="text-center p-6 rounded-lg hover:bg-gray-50 transition">
-                    <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-motorcycle text-yellow-500 text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">3. Fast Delivery</h3>
-                    <p class="text-gray-600">Get your food delivered quickly to your doorstep.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Testimonials Section -->
     <section id="testimonials" class="py-20 bg-gray-100">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">What Our Customers Say</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Hear from people who have enjoyed our food delivery service
+                <p class="text-gray-600 max-w-2xl mx-auto">Hear from people who have enjoyed our coffee
                 </p>
             </div>
 
@@ -361,13 +288,12 @@
                         </div>
                         <span class="text-gray-600 text-sm">5.0</span>
                     </div>
-                    <p class="text-gray-700 mb-6">"The food arrived hot and fresh, exactly as described. Delivery was
-                        faster than expected. Will definitely order again!"</p>
+                    <p class="text-gray-700 mb-6">"Nescafé Hub at UiTM Merbok is such a hidden gem on campus! The iced caramel latte was super refreshing, especially in this hot weather. Prices are student-friendly — I got my drink for just RM4! 😍"</p>
                     <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J."
+                        <img src="../assets/img/p1.png" alt="Ainnil Soffiyah"
                             class="w-12 h-12 rounded-full mr-4">
                         <div>
-                            <h4 class="font-bold text-gray-800">Sarah J.</h4>
+                            <h4 class="font-bold text-gray-800">Ainnil Soffiyah</h4>
                             <p class="text-gray-600 text-sm">Regular Customer</p>
                         </div>
                     </div>
@@ -385,13 +311,12 @@
                         </div>
                         <span class="text-gray-600 text-sm">4.5</span>
                     </div>
-                    <p class="text-gray-700 mb-6">"Great variety of restaurants to choose from. The app makes ordering
-                        so easy, and the delivery guys are always polite."</p>
+                    <p class="text-gray-700 mb-6">“It’s a great spot to recharge between classes — whether you need a caffeine boost before lectures or just a moment to relax. The drinks are prepared with care, and the quality really surprised me for a student-run kiosk.”</p>
                     <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T."
+                        <img src="../assets/img/p2.png" alt="Alif Najmi"
                             class="w-12 h-12 rounded-full mr-4">
                         <div>
-                            <h4 class="font-bold text-gray-800">Michael T.</h4>
+                            <h4 class="font-bold text-gray-800">Alif Najmi</h4>
                             <p class="text-gray-600 text-sm">New Customer</p>
                         </div>
                     </div>
@@ -409,19 +334,23 @@
                         </div>
                         <span class="text-gray-600 text-sm">5.0</span>
                     </div>
-                    <p class="text-gray-700 mb-6">"I order at least twice a week. Consistent quality, great packaging,
-                        and the loyalty program has amazing rewards!"</p>
+                    <p class="text-gray-700 mb-6">"I do wish there were more snack options or combo sets, but overall, it’s a great spot to chill between classes. Definitely beats walking all the way to the main café just for a quick caffeine fix."</p>
                     <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily R."
+                        <img src="../assets/img/p3.png" alt="Puteri Emiliya"
                             class="w-12 h-12 rounded-full mr-4">
                         <div>
-                            <h4 class="font-bold text-gray-800">Emily R.</h4>
+                            <h4 class="font-bold text-gray-800">Puteri Emiliya</h4>
                             <p class="text-gray-600 text-sm">Loyal Customer</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+            <div class="text-center mt-12">
+                <a href="reviews.html" class="border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-white font-bold py-3 px-8 rounded-full transition-all duration-300">
+                  Write Your Review
+                </a>
+            </div>
     </section>
 
 
@@ -460,8 +389,6 @@
                     <ul class="space-y-2">
                         <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Home</a></li>
                         <li><a href="#featured" class="text-gray-400 hover:text-yellow-400 transition">Menu</a></li>
-                        <li><a href="#how-it-works" class="text-gray-400 hover:text-yellow-400 transition">How It
-                                Works</a></li>
                         <li><a href="#testimonials"
                                 class="text-gray-400 hover:text-yellow-400 transition">Testimonials</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Blog</a></li>

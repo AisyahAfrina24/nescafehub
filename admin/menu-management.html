@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Management - Nescafe Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .font-poppins { font-family: 'Poppins', sans-serif; }
+    .sidebar { transition: width 0.3s ease; }
+    .content { transition: margin-left 0.3s ease; }
+    .fade-in { animation: fadeIn 0.3s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal-enter { animation: modalEnter 0.3s ease-out; }
+    @keyframes modalEnter { 
+      from { opacity: 0; transform: scale(0.95); } 
+      to { opacity: 1; transform: scale(1); } 
+    }
+  </style>
+</head>
+<body class="font-poppins bg-gray-100">
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <div class="sidebar bg-gray-900 text-white w-64 flex-shrink-0 flex flex-col">
+      <div class="p-4 flex items-center justify-between border-b border-gray-800">
+        <div class="flex items-center">
+          <i class="fas fa-coffee text-yellow-400 text-2xl mr-3"></i>
+          <span class="logo-text text-xl font-bold">Nescafe Admin</span>
+        </div>
+        <button class="menu-toggle text-gray-400 hover:text-white focus:outline-none">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+      
+      <div class="flex-1 overflow-y-auto py-4">
+        <nav>
+          <ul class="space-y-1 px-2">
+            <li>
+              <a href="../admin/index.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition active-nav">
+                <i class="fas fa-tachometer-alt text-yellow-400 w-6 text-center"></i>
+                <span class="nav-text ml-3 text-yellow-400">Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="../admin/menu-management.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-utensils text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Menu Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="../admin/stock-management.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-boxes text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Stock Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="../admin/order-management.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-shopping-cart text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Orders</span>
+              </a>
+            </li>
+            <li>
+              <a href="../admin/staff-management.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-users text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Staff Management</span>
+              </a>
+            </li>
+            <li>
+              <a href="../admin/reports-management.html" class="flex items-center p-3 rounded-lg hover:bg-gray-800 transition">
+                <i class="fas fa-chart-bar text-gray-400 w-6 text-center"></i>
+                <span class="nav-text ml-3">Reports</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      
+      <div class="p-4 border-t border-gray-800">
+        <div class="flex items-center">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Admin" class="w-10 h-10 rounded-full">
+          <div class="ml-3 nav-text">
+            <div class="font-medium">Admin User</div>
+            <div class="text-sm text-gray-400">Super Admin</div>
+          </div>
+        </div>
+        <a href="auth.html" class="mt-4 flex items-center text-gray-400 hover:text-white transition">
+          <i class="fas fa-sign-out-alt w-6 text-center"></i>
+          <span class="nav-text ml-3">Logout</span>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="content flex-1 flex flex-col overflow-hidden">
+      <!-- Top Navigation -->
+      <header class="bg-white shadow-sm py-4 px-6 flex items-center justify-between">
+        <h1 class="text-2xl font-bold text-gray-800">Menu Management</h1>
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <input type="text" id="search-input" placeholder="Search menu items..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+          </div>
+          <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition">
+            <i class="fas fa-bell"></i>
+          </button>
+        </div>
+      </header>
+      
+      <!-- Menu Management Content -->
+      <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800">Menu Items</h2>
+            <p class="text-gray-600 mt-1">Manage your cafe's menu items and pricing</p>
+          </div>
+          <div class="flex space-x-3">
+            <select id="category-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+              <option value="">All Categories</option>
+              <option value="hot">Hot Beverage</option>
+              <option value="cold">Cold Beverage</option>
+              <option value="special">Special Recipe</option>
+              <option value="addOn">Add On</option>
+            </select>
+            <button id="add-menu-item" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition flex items-center shadow-md">
+              <i class="fas fa-plus mr-2"></i> Add New Item
+            </button>
+          </div>
+        </div>
+        
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 justify-center w-fit mx-auto">
+  <!-- Total Items -->
+  <div class="bg-white p-6 rounded-xl shadow-sm">
+    <div class="flex items-center">
+      <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+        <i class="fas fa-utensils"></i>
+      </div>
+      <div class="ml-4">
+        <p class="text-sm font-medium text-gray-600">Total Items</p>
+        <p class="text-2xl font-bold text-gray-900" id="total-items">0</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Items -->
+  <div class="bg-white p-6 rounded-xl shadow-sm">
+    <div class="flex items-center">
+      <div class="p-3 rounded-full bg-green-100 text-green-600">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <div class="ml-4">
+        <p class="text-sm font-medium text-gray-600">Active Items</p>
+        <p class="text-2xl font-bold text-gray-900" id="active-items">0</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inactive Items -->
+  <div class="bg-white p-6 rounded-xl shadow-sm">
+    <div class="flex items-center">
+      <div class="p-3 rounded-full bg-red-100 text-red-600">
+        <i class="fas fa-times-circle"></i>
+      </div>
+      <div class="ml-4">
+        <p class="text-sm font-medium text-gray-600">Inactive Items</p>
+        <p class="text-2xl font-bold text-gray-900" id="inactive-items">0</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100" onclick="sortTable('name')">
+                    Name <i class="fas fa-sort ml-1"></i>
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100" onclick="sortTable('category')">
+                    Category <i class="fas fa-sort ml-1"></i>
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100" onclick="sortTable('price')">
+                    Price (RM) <i class="fas fa-sort ml-1"></i>
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200" id="menu-items">
+                <!-- Menu items will be loaded here -->
+              </tbody>
+            </table>
+          </div>
+          <div id="no-items" class="text-center py-12 hidden">
+            <i class="fas fa-utensils text-gray-300 text-6xl mb-4"></i>
+            <h3 class="text-lg font-medium text-gray-500 mb-2">No menu items found</h3>
+            <p class="text-gray-400">Add your first menu item to get started</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  
+  <!-- Add/Edit Menu Item Modal -->
+  <div id="menu-item-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-2xl mx-4 modal-enter">
+      <div class="flex justify-between items-center border-b border-gray-200 p-6">
+        <h3 id="modal-title" class="text-xl font-bold text-gray-800">Add New Menu Item</h3>
+        <button id="close-modal" class="text-gray-400 hover:text-gray-600 transition">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      <form id="menu-item-form" class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Item Image</label>
+            <div class="mt-1 flex items-center">
+              <span class="inline-block h-24 w-24 rounded-lg overflow-hidden bg-gray-100 border-2 border-dashed border-gray-300">
+                <img id="item-image-preview" src="https://via.placeholder.com/150?text=No+Image" class="h-full w-full object-cover">
+              </span>
+              <div class="ml-5">
+                <input type="file" id="image-upload" accept="image/*" class="hidden">
+                <button type="button" id="upload-btn" class="bg-white py-2 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition">
+                  <i class="fas fa-upload mr-2"></i>Upload Image
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <label for="item-name" class="block text-sm font-medium text-gray-700 mb-2">Item Name *</label>
+            <input type="text" id="item-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+            <div class="text-red-500 text-sm mt-1 hidden" id="name-error">Please enter a valid item name</div>
+          </div>
+          
+          <div>
+            <label for="item-category" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+            <select id="item-category" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+              <option value="">Select Category</option>
+              <option value="hot">Hot Beverage</option>
+              <option value="cold">Cold Beverage</option>
+              <option value="special">Special Recipe</option>
+              <option value="addOn">Add On</option>
+            </select>
+            <div class="text-red-500 text-sm mt-1 hidden" id="category-error">Please select a category</div>
+          </div>
+          
+          <div>
+            <label for="item-price" class="block text-sm font-medium text-gray-700 mb-2">Price (RM) *</label>
+            <input type="number" id="item-price" step="0.01" min="0" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+            <div class="text-red-500 text-sm mt-1 hidden" id="price-error">Please enter a valid price</div>
+          </div>
+          
+          
+          <div>
+            <label for="item-status" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+            <select id="item-status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+          
+          <div class="col-span-2">
+            <label for="item-description" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+            <textarea id="item-description" rows="3" placeholder="Enter item description..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent resize-none"></textarea>
+          </div>
+        </div>
+        
+        <div class="mt-6 flex justify-end space-x-3">
+          <button type="button" id="cancel-modal" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition">
+            Cancel
+          </button>
+          <button type="submit" id="save-btn" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded-lg transition">
+            <i class="fas fa-save mr-2"></i>Save Item
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="delete-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-md mx-4 modal-enter">
+      <div class="p-6">
+        <div class="flex items-center mb-4">
+          <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-4">
+            <i class="fas fa-trash text-red-600"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-800">Delete Menu Item</h3>
+        </div>
+        <p class="text-gray-600 mb-6">Are you sure you want to delete this menu item? This action cannot be undone.</p>
+        <div class="flex justify-end space-x-3">
+          <button id="cancel-delete" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition">
+            Cancel
+          </button>
+          <button id="confirm-delete" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success/Error Toast -->
+  <div id="toast" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+    <div class="flex items-center">
+      <i id="toast-icon" class="fas fa-check-circle mr-2"></i>
+      <span id="toast-message">Success!</span>
+      <button id="close-toast" class="ml-4 text-white hover:text-gray-200">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+
+<script>
+    // Menu items data store
+    let menuItems = [
+      {
+        id: 1,
+        name: "Blend & Brew",
+        category: "hot",
+        price: 3.00,
+        status: "active",
+        description: "This drink offers a balanced and bold coffee flavor.",
+        image: "../assets/img/hotbeverage.png"
+      },
+      {
+        id: 2,
+        name: "Caffe Latte",
+        category: "hot",
+        price: 3.00,
+        status: "active",
+        description: "Smooth espresso with steamed milk",
+        image: "../assets/img/hotbeverage.png"
+      },
+      {
+        id: 3,
+        name: "Caramel Latte",
+        category: "cold",
+        price: 3.50,
+        status: "active",
+        description: "This iced drink is smooth and sweet.",
+        image: "../assets/img/coldbeverage.png"
+      },
+      {
+        id: 4,
+        name: "Hazelnut Latte",
+        category: "cold",
+        price: 3.50,
+        status: "active",
+        description: "Chilled and nutty, this version offers a refreshing hazelnut latte.",
+        image: "../assets/img/coldbeverage.png"
+      },
+      {
+        id: 5,
+        name: "Extra NESCAFÉ Hazelnut Nestum LatteShot",
+        category: "special",
+        price: 6.00,
+        status: "active",
+        description: "This special latte blends the nutty flavor of hazelnut.",
+        image: "../assets/img/specialrecipe.png"
+      },
+      {
+        id: 6,
+        name: "NESCAFÉ Caramel KitKat Latte",
+        category: "special",
+        price: 6.00,
+        status: "inactive",
+        description: "Sweet and fun, this drink combines caramel-flavored coffee.",
+        image: "../assets/img/specialrecipe.png"
+      }
+    ];
+
+    let nextId = 7;
+    let editingId = null;
+    let sortDirection = 'asc';
+    let currentSortField = '';
+
+    // DOM Elements
+    const addBtn = document.getElementById('add-menu-item');
+    const modal = document.getElementById('menu-item-modal');
+    const deleteModal = document.getElementById('delete-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const cancelModalBtn = document.getElementById('cancel-modal');
+    const form = document.getElementById('menu-item-form');
+    const menuItemsContainer = document.getElementById('menu-items');
+    const searchInput = document.getElementById('search-input');
+    const categoryFilter = document.getElementById('category-filter');
+    const uploadBtn = document.getElementById('upload-btn');
+    const imageUpload = document.getElementById('image-upload');
+    const imagePreview = document.getElementById('item-image-preview');
+    const toast = document.getElementById('toast');
+    const noItemsDiv = document.getElementById('no-items');
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      renderMenuItems();
+      updateStats();
+      setupEventListeners();
+    });
+
+    function setupEventListeners() {
+      // Modal controls
+      addBtn.addEventListener('click', () => openModal());
+      closeModalBtn.addEventListener('click', closeModal);
+      cancelModalBtn.addEventListener('click', closeModal);
+      form.addEventListener('submit', handleSubmit);
+
+      // Search and filter
+      searchInput.addEventListener('input', filterItems);
+      categoryFilter.addEventListener('change', filterItems);
+
+      // Image upload
+      uploadBtn.addEventListener('click', () => imageUpload.click());
+      imageUpload.addEventListener('change', handleImageUpload);
+
+      // Delete modal
+      document.getElementById('cancel-delete').addEventListener('click', closeDeleteModal);
+      document.getElementById('confirm-delete').addEventListener('click', confirmDelete);
+
+      // Toast close
+      document.getElementById('close-toast').addEventListener('click', closeToast);
+
+      // Click outside to close modals
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+      deleteModal.addEventListener('click', (e) => {
+        if (e.target === deleteModal) closeDeleteModal();
+      });
+    }
+
+    function openModal(item = null) {
+      editingId = item ? item.id : null;
+      const modalTitle = document.getElementById('modal-title');
+      const saveBtn = document.getElementById('save-btn');
+
+      if (item) {
+        modalTitle.textContent = 'Edit Menu Item';
+        saveBtn.innerHTML = '<i class="fas fa-save mr-2"></i>Update Item';
+        populateForm(item);
+      } else {
+        modalTitle.textContent = 'Add New Menu Item';
+        saveBtn.innerHTML = '<i class="fas fa-save mr-2"></i>Save Item';
+        form.reset();
+        imagePreview.src = 'https://via.placeholder.com/150?text=No+Image';
+      }
+
+      clearErrors();
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      editingId = null;
+    }
+
+    function populateForm(item) {
+      document.getElementById('item-name').value = item.name;
+      document.getElementById('item-category').value = item.category;
+      document.getElementById('item-price').value = item.price;
+      document.getElementById('item-status').value = item.status;
+      document.getElementById('item-description').value = item.description || '';
+      imagePreview.src = item.image;
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      
+      if (!validateForm()) return;
+
+      const formData = {
+        name: document.getElementById('item-name').value.trim(),
+        category: document.getElementById('item-category').value,
+        price: parseFloat(document.getElementById('item-price').value),
+        status: document.getElementById('item-status').value,
+        description: document.getElementById('item-description').value.trim(),
+        image: imagePreview.src
+      };
+
+      if (editingId) {
+        updateMenuItem(editingId, formData);
+        showToast('Menu item updated successfully!', 'success');
+      } else {
+        createMenuItem(formData);
+        showToast('Menu item created successfully!', 'success');
+      }
+
+      closeModal();
+      renderMenuItems();
+      updateStats();
+    }
+
+    function validateForm() {
+      let isValid = true;
+      clearErrors();
+
+      const name = document.getElementById('item-name').value.trim();
+      const category = document.getElementById('item-category').value;
+      const price = document.getElementById('item-price').value;
+
+      if (!name) {
+        showError('name-error');
+        isValid = false;
+      }
+      if (!category) {
+        showError('category-error');
+        isValid = false;
+      }
+      if (!price || price <= 0) {
+        showError('price-error');
+        isValid = false;
+      }
+
+
+      return isValid;
+    }
+
+    function showError(errorId) {
+      document.getElementById(errorId).classList.remove('hidden');
+    }
+
+    function clearErrors() {
+      const errors = document.querySelectorAll('[id$="-error"]');
+      errors.forEach(error => error.classList.add('hidden'));
+    }
+
+    function createMenuItem(data) {
+      const newItem = {
+        id: nextId++,
+        ...data
+      };
+      menuItems.push(newItem);
+    }
+
+    function updateMenuItem(id, data) {
+      const index = menuItems.findIndex(item => item.id === id);
+      if (index !== -1) {
+        menuItems[index] = { ...menuItems[index], ...data };
+      }
+    }
+
+    function deleteMenuItem(id) {
+      menuItems = menuItems.filter(item => item.id !== id);
+      renderMenuItems();
+      updateStats();
+      showToast('Menu item deleted successfully!', 'success');
+    }
+    
+
+    function renderMenuItems(items = menuItems) {
+      if (items.length === 0) {
+        menuItemsContainer.innerHTML = '';
+        noItemsDiv.classList.remove('hidden');
+        return;
+      }
+
+      noItemsDiv.classList.add('hidden');
+      
+      menuItemsContainer.innerHTML = items.map(item => `
+        <tr class="hover:bg-gray-50 transition fade-in">
+          <td class="px-6 py-4 whitespace-nowrap">
+            <img src="${item.image}" alt="${item.name}" class="w-12 h-12 rounded-lg object-cover">
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="text-sm font-medium text-gray-900">${item.name}</div>
+            <div class="text-sm text-gray-500">${item.description || 'No description'}</div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+              item.category.toLowerCase() === 'hot' ? 'bg-yellow-100 text-yellow-800' :
+              item.category.toLowerCase() === 'cold' ? 'bg-blue-100 text-blue-800' :
+              item.category.toLowerCase() === 'special' ? 'bg-purple-100 text-purple-800' :
+              item.category.toLowerCase() === 'addon' ? 'bg-red-100 text-red-800' : 'bg-grey-100 text-grey-800'
+            }">
+              ${item.category.charAt(0).toUpperCase() + item.category.slice(1)}
+            </span>
+          </td>
+
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+            ${item.price.toFixed(2)}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusClass(item.status)}">
+              <i class="fas ${item.status === 'active' ? 'fa-check-circle' : 'fa-times-circle'} mr-1"></i>
+              ${item.status === 'active' ? 'Active' : 'Inactive'}
+            </span>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+            <div class="flex space-x-2">
+              <button onclick="openModal(${JSON.stringify(item).replace(/"/g, '&quot;')})" 
+                class="text-indigo-600 hover:text-indigo-900 transition p-2 rounded-lg hover:bg-indigo-50">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button onclick="openDeleteModal(${item.id})" 
+                class="text-red-600 hover:text-red-900 transition p-2 rounded-lg hover:bg-red-50">
+                <i class="fas fa-trash"></i>
+              </button>
+              <button onclick="toggleStatus(${item.id})" 
+                class="text-gray-600 hover:text-gray-900 transition p-2 rounded-lg hover:bg-gray-50">
+                <i class="fas ${item.status === 'active' ? 'fa-eye-slash' : 'fa-eye'}"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function formatCategory(category) {
+      const categoryMap = {
+        'hot': 'Hot Beverage',
+        'cold': 'Cold Beverage', 
+        'special': 'Special Recipe',
+        'addon': 'Add On'
+      };
+      return categoryMap[category] || category;
+    }
+
+
+    function getStatusClass(status) {
+      return status === 'active' 
+        ? 'bg-green-100 text-green-800' 
+        : 'bg-gray-100 text-gray-800';
+    }
+
+    function updateStats() {
+      const totalItems = menuItems.length;
+      const activeItems = menuItems.filter(item => item.status === 'active').length;
+      const inactiveItems = menuItems.filter(item => item.status === 'inactive').length;
+
+      document.getElementById('total-items').textContent = totalItems;
+      document.getElementById('active-items').textContent = activeItems;
+      document.getElementById('inactive-items').textContent = inactiveItems;
+    }
+
+    function filterItems() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const selectedCategory = categoryFilter.value;
+
+      let filtered = menuItems.filter(item => {
+        const matchesSearch = item.name.toLowerCase().includes(searchTerm) ||
+                             (item.description && item.description.toLowerCase().includes(searchTerm));
+        const matchesCategory = !selectedCategory || item.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+      });
+
+      renderMenuItems(filtered);
+      
+      // Update the display message
+      const resultCount = filtered.length;
+      const totalCount = menuItems.length;
+      
+      if (searchTerm || selectedCategory) {
+        console.log(`Showing ${resultCount} of ${totalCount} items`);
+        // You can add a results counter to the UI if needed
+      }
+    }
+
+    function sortTable(field) {
+      if (currentSortField === field) {
+        sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortDirection = 'asc';
+        currentSortField = field;
+      }
+
+      menuItems.sort((a, b) => {
+        let aValue = a[field];
+        let bValue = b[field];
+
+        if (typeof aValue === 'string') {
+          aValue = aValue.toLowerCase();
+          bValue = bValue.toLowerCase();
+        }
+
+        if (sortDirection === 'asc') {
+          return aValue > bValue ? 1 : -1;
+        } else {
+          return aValue < bValue ? 1 : -1;
+        }
+      });
+
+      renderMenuItems();
+    }
+
+    function toggleStatus(id) {
+      const item = menuItems.find(item => item.id === id);
+      if (item) {
+        item.status = item.status === 'active' ? 'inactive' : 'active';
+        renderMenuItems();
+        updateStats();
+        showToast(`Item ${item.status === 'active' ? 'activated' : 'deactivated'} successfully!`, 'success');
+      }
+    }
+
+    function handleImageUpload(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          imagePreview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    let itemToDelete = null;
+
+    function openDeleteModal(id) {
+      itemToDelete = id;
+      deleteModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDeleteModal() {
+      deleteModal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      itemToDelete = null;
+    }
+
+    function confirmDelete() {
+      if (itemToDelete) {
+        deleteMenuItem(itemToDelete);
+        closeDeleteModal();
+      }
+    }
+
+    function showToast(message, type = 'success') {
+      const toastIcon = document.getElementById('toast-icon');
+      const toastMessage = document.getElementById('toast-message');
+      
+      toast.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 z-50 ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+      } text-white`;
+      
+      toastIcon.className = `fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} mr-2`;
+      toastMessage.textContent = message;
+      
+      toast.style.transform = 'translateX(0)';
+      
+      setTimeout(() => {
+        toast.style.transform = 'translateX(100%)';
+      }, 3000);
+    }
+
+    function closeToast() {
+      toast.style.transform = 'translateX(100%)';
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        if (!modal.classList.contains('hidden')) {
+          closeModal();
+        }
+        if (!deleteModal.classList.contains('hidden')) {
+          closeDeleteModal();
+        }
+      }
+      if (e.ctrlKey && e.key === 'n') {
+        e.preventDefault();
+        openModal();
+      }
+    });
+
+    // Auto-save draft functionality
+    let draftTimer;
+    const formInputs = ['item-name', 'item-category', 'item-price', 'item-description'];
+    
+    formInputs.forEach(inputId => {
+      const input = document.getElementById(inputId);
+      if (input) {
+        input.addEventListener('input', () => {
+          clearTimeout(draftTimer);
+          draftTimer = setTimeout(saveDraft, 1000);
+        });
+      }
+    });
+
+    function saveDraft() {
+      if (!modal.classList.contains('hidden')) {
+        const draft = {};
+        formInputs.forEach(inputId => {
+          const input = document.getElementById(inputId);
+          if (input) draft[inputId] = input.value;
+        });
+        // In a real application, you would save this to localStorage or send to server
+        console.log('Draft saved:', draft);
+      }
+    }
+
+    // Export functionality
+    function exportToCSV() {
+      const headers = ['Name', 'Category', 'Price', 'Status', 'Description'];
+      const csvData = [
+        headers.join(','),
+        ...menuItems.map(item => [
+          `"${item.name}"`,
+          `"${item.category}"`,
+          item.price,
+          `"${item.status}"`,
+          `"${item.description || ''}"`
+        ].join(','))
+      ].join('\n');
+
+      const blob = new Blob([csvData], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'menu-items.csv';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+
+    // Add export button to header (you can uncomment this to add export functionality)
+    /*
+    const exportBtn = document.createElement('button');
+    exportBtn.innerHTML = '<i class="fas fa-download mr-2"></i>Export CSV';
+    exportBtn.className = 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition';
+    exportBtn.onclick = exportToCSV;
+    document.querySelector('.flex.space-x-3').appendChild(exportBtn);
+    */
+  </script>
+</body>
+</html>

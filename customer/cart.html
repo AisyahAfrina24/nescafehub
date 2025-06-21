@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nescafe Hub - Cart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    .font-poppins { font-family: 'Poppins', sans-serif; }
+    .cart-item { transition: all 0.3s ease; }
+    .cart-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    .quantity-btn { transition: all 0.2s ease; }
+    .quantity-btn:hover { background-color: #f59e0b; color: white; }
+    .quantity-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .fade-in {
+      animation: fadeIn 0.3s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-poppins min-h-screen">
+
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">
+        <i class="fas fa-shopping-cart text-amber-500 mr-2"></i>
+        Your Order
+      </h1>
+      <a href="menu.html" class="text-amber-600 hover:text-amber-700 flex items-center transition-colors duration-200">
+        Add More Items
+      </a>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <div id="cart-items" class="divide-y divide-gray-200"></div>
+
+      <div class="p-6 bg-gray-50 border-t border-gray-200">
+        <div class="space-y-3 mb-6">
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600">Subtotal</span>
+            <span id="subtotal" class="font-medium text-gray-900">RM 0.00</span>
+          </div>
+          <div class="border-t pt-3">
+            <div class="flex justify-between items-center text-lg font-bold">
+              <span>Total</span>
+              <span id="total" class="text-amber-600">RM 0.00</span>
+            </div>
+          </div>
+        </div>
+
+        <button id="checkout-btn" class="w-full bg-amber-500 hover:bg-amber-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center" disabled>
+          <i class="fas fa-credit-card mr-2"></i>
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const addOns = {
+      whippedCream: { name: "Whipped Cream", price: 1.00 },
+      kitKat: { name: "KitKat", price: 1.50 },
+      ice: { name: "Cup of Ice", price: 0.50 },
+      hotWater: { name: "Hot Water", price: 0.50 }
+    };
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+      const cartItemsDiv = document.getElementById('cart-items');
+      const subtotalDiv = document.getElementById('subtotal');
+      const totalDiv = document.getElementById('total');
+      const checkoutBtn = document.getElementById('checkout-btn');
+  
+      function updateCart() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+  
+      function renderCart() {
+        if (cart.length === 0) {
+          cartItemsDiv.innerHTML = `
+            <div class="p-12 text-center fade-in">
+              <i class="fas fa-coffee text-6xl text-gray-300 mb-4"></i>
+              <h3 class="text-xl font-semibold text-gray-700 mb-2">Your cart is empty</h3>
+              <p class="text-gray-500 mb-6">Start adding some Nescafe's Coffee!</p>
+              <a href="menu.html" class="inline-flex items-center bg-amber-500 hover:bg-amber-600 text-white font-medium py-3 px-6 rounded-lg transition duration-300">
+                <i class="fas fa-utensils mr-2"></i>
+                Browse Menu
+              </a>
+            </div>
+          `;
+          checkoutBtn.disabled = true;
+          subtotalDiv.textContent = `RM 0.00`;
+          totalDiv.textContent = `RM 0.00`;
+          return;
+        }
+  
+        let subtotal = 0;
+        cartItemsDiv.innerHTML = '';
+  
+        cart.forEach((item, index) => {
+          let addOnTotal = 0;
+          const itemAddOns = item.addOns || {};
+  
+          for (let key in itemAddOns) {
+            if (itemAddOns[key]) {
+              addOnTotal += addOns[key].price;
+            }
+          }
+  
+          const itemTotal = (item.price + addOnTotal) * item.quantity;
+          subtotal += itemTotal;
+  
+          const div = document.createElement('div');
+          div.className = "cart-item p-6 flex flex-col lg:flex-row gap-4 fade-in";
+          div.innerHTML = `
+            <div class="flex-1 flex items-start space-x-4">
+              <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 flex items-center justify-center border border-gray-200">
+                <img src="${item.img || '../nescafehub/assets/img/default.png'}" alt="${item.name}" class="w-full h-full object-cover">
+              </div>
+              <div class="flex-1">
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">${item.name}</h3>
+                <p class="text-amber-600 font-medium text-lg">RM ${item.price.toFixed(2)}</p>
+  
+                <div class="mt-2 space-y-1 text-sm text-gray-700">
+                  <label><input type="checkbox" data-index="${index}" data-addon="whippedCream" ${itemAddOns.whippedCream ? "checked" : ""}> Whipped Cream (+RM 1.00)</label><br>
+                  <label><input type="checkbox" data-index="${index}" data-addon="kitKat" ${itemAddOns.kitKat ? "checked" : ""}> KitKat (+RM 1.50)</label><br>
+                  <label><input type="checkbox" data-index="${index}" data-addon="ice" ${itemAddOns.ice ? "checked" : ""}> Cup of Ice (+RM 0.50)</label><br>
+                  <label><input type="checkbox" data-index="${index}" data-addon="hotWater" ${itemAddOns.hotWater ? "checked" : ""}> Hot Water (+RM 0.50)</label>
+                </div>
+              </div>
+            </div>
+  
+            <div class="flex items-center justify-between lg:justify-end gap-4">
+              <div class="flex items-center border border-gray-300 rounded-lg bg-white">
+                <button class="quantity-btn w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-amber-50 rounded-l-lg border-r" 
+                        data-index="${index}" data-action="decrease" ${item.quantity <= 1 ? 'disabled' : ''}>
+                  <i class="fas fa-minus text-sm"></i>
+                </button>
+                <span class="w-12 text-center font-medium py-2">${item.quantity}</span>
+                <button class="quantity-btn w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-amber-50 rounded-r-lg border-l" 
+                        data-index="${index}" data-action="increase">
+                  <i class="fas fa-plus text-sm"></i>
+                </button>
+              </div>
+              <div class="w-24 text-right">
+                <span class="font-semibold text-lg">RM ${itemTotal.toFixed(2)}</span>
+              </div>
+              <button class="remove-item text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors duration-200" 
+                      data-index="${index}" title="Remove item">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          `;
+          cartItemsDiv.appendChild(div);
+        });
+  
+        subtotalDiv.textContent = `RM ${subtotal.toFixed(2)}`;
+        totalDiv.textContent = `RM ${subtotal.toFixed(2)}`;
+        checkoutBtn.disabled = false;
+      }
+  
+      renderCart();
+  
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('.quantity-btn') && !e.target.closest('.quantity-btn').disabled) {
+          const btn = e.target.closest('.quantity-btn');
+          const index = parseInt(btn.dataset.index);
+          const action = btn.dataset.action;
+  
+          if (action === 'increase') {
+            cart[index].quantity += 1;
+          } else if (action === 'decrease' && cart[index].quantity > 1) {
+            cart[index].quantity -= 1;
+          }
+  
+          updateCart();
+          renderCart();
+        }
+  
+        if (e.target.closest('.remove-item')) {
+          const index = parseInt(e.target.closest('.remove-item').dataset.index);
+          if (confirm('Are you sure you want to remove this item from your cart?')) {
+            cart.splice(index, 1);
+            updateCart();
+            renderCart();
+          }
+        }
+  
+        if (e.target.type === 'checkbox' && e.target.dataset.index !== undefined && e.target.dataset.addon) {
+          const index = parseInt(e.target.dataset.index);
+          const addonKey = e.target.dataset.addon;
+  
+          if (!cart[index].addOns) cart[index].addOns = {};
+          cart[index].addOns[addonKey] = e.target.checked;
+  
+          updateCart();
+          renderCart();
+        }
+  
+        if (e.target.id === 'checkout-btn' && !e.target.disabled) {
+          const total = cart.reduce((sum, item) => {
+            let addOnCost = 0;
+            if (item.addOns) {
+              for (let key in item.addOns) {
+                if (item.addOns[key]) {
+                  addOnCost += addOns[key].price;
+                }
+              }
+            }
+            return sum + (item.price + addOnCost) * item.quantity;
+          }, 0);
+  
+          alert(`Order Total: RM ${total.toFixed(2)}\n\nThank you for your order!`);
+          localStorage.removeItem('cart');
+          cart = [];
+          renderCart();
+        }
+      });
+    });
+  </script>
+  
+</body>
+</html>
