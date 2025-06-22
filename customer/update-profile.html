@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nescafe Hub - Update Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .font-orbitron {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .font-poppins {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .navbar {
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background-color: rgba(0, 0, 0, 0.9);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .mobile-menu.open {
+      max-height: 500px;
+    }
+
+    .profile-card {
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .profile-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-focus:focus {
+      box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
+      border-color: #fbbf24;
+    }
+
+    .btn-coffee {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      transition: all 0.3s ease;
+    }
+
+    .btn-coffee:hover {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+    }
+
+    .section-divider {
+      background: linear-gradient(90deg, transparent, #fbbf24, transparent);
+      height: 2px;
+      margin: 2rem 0;
+    }
+
+    .profile-photo-overlay {
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.9), rgba(245, 158, 11, 0.9));
+    }
+
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .success-modal {
+      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .dietary-tag {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .dietary-tag:hover {
+      transform: scale(1.05);
+    }
+
+    .form-section {
+      border-left: 4px solid #fbbf24;
+      padding-left: 1.5rem;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-amber-50 to-orange-100 min-h-screen">
+  <!-- Navigation Bar -->
+    <nav class="navbar fixed w-full z-50 px-6 py-4 md:px-20 bg-gray-900">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <a href="index.html" class="text-white text-2xl font-bold flex items-center font-poppins">
+                    <i class="fas fa-coffee text-yellow-400 mr-3 text-3xl"></i>
+                    <span class="tracking-tight">Nescafe Hub</span>
+                </a>
+            </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Home</a>
+        <a href="menu.html" class="text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Menu</a>
+        <a href="reviews.html" class="text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Review</a>
+        <a href="index.html#contact" class="text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Contact</a>
+        
+        <!-- Profile Dropdown -->
+        <div class="relative">
+            <button id="profileButton" class="flex items-center space-x-2 text-white hover:text-yellow-400 transition focus:outline-none">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>                
+                <span>Profile</span>
+                <i class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
+            </button>
+            
+          <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden">
+            <a href="update-profile.html" class="block px-4 py-2 text-sm text-gray-800 hover:bg-yellow-50 hover:text-yellow-600 transition-colors duration-300">
+              <i class="fas fa-edit mr-2"></i>Update Profile
+            </a>
+            <a href="order.html" class="block px-4 py-2 text-sm text-gray-800 hover:bg-yellow-50 hover:text-yellow-600 transition-colors duration-300">
+              <i class="fas fa-history mr-2"></i>Order History
+            </a>
+            <hr class="my-1">
+            <a href="auth.html" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-300">
+              <i class="fas fa-sign-out-alt mr-2"></i>Sign Out
+            </a>
+          </div>
+        </div>
+
+        <div class="relative">
+          <a href="cart.html" class="text-white hover:text-yellow-400 transition-colors duration-300 relative">
+            <i class="fas fa-shopping-cart text-xl"></i>
+            <span id="cart-count" class="absolute -top-2 -right-2 bg-yellow-500 text-xs text-white rounded-full h-5 w-5 flex items-center justify-center font-medium">0</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden">
+        <button id="mobile-menu-btn" class="text-white hover:text-yellow-400 transition-colors duration-300">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu md:hidden bg-gray-800 px-6 pb-4">
+      <div class="space-y-3 pt-4">
+        <a href="index.html" class="block text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Home</a>
+        <a href="menu.html" class="block text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Menu</a>
+        <a href="order.html" class="block text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Order</a>
+        <a href="reviews.html" class="block text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Review</a>
+        <a href="index.html#contact" class="block text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Contact</a>
+        <a href="update-profile.html" class="block text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-medium">Profile</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-36 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+    <div class="container mx-auto px-6 text-center">
+      <div class="animate-float mb-6">
+        <i class="fas fa-user-edit text-6xl text-yellow-400"></i>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 font-poppins tracking-tight">Update Profile</h1>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">Keep your coffee preferences and personal information up to date</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-16">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto">
+        
+        <!-- Profile Form Card -->
+        <div class="profile-card rounded-2xl shadow-2xl p-8 md:p-12">
+          
+          <!-- Profile Photo Section -->
+          <div class="text-center mb-12">
+            <div class="relative inline-block">
+              <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-yellow-400 shadow-lg mx-auto relative">
+                <img id="profileImage" src="https://via.placeholder.com/128/fbbf24/white?text=USER" 
+                     alt="Profile Picture" class="w-full h-full object-cover">
+                <div class="absolute inset-0 profile-photo-overlay opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer"
+                     onclick="document.getElementById('imageUpload').click()">
+                  <i class="fas fa-camera text-white text-2xl"></i>
+                </div>
+              </div>
+              <button type="button" onclick="document.getElementById('imageUpload').click()" 
+                      class="absolute bottom-0 right-0 btn-coffee text-white rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110">
+                <i class="fas fa-camera"></i>
+              </button>
+              <input type="file" id="imageUpload" accept="image/*" class="hidden">
+            </div>
+            <p class="text-gray-600 mt-4 font-medium">Click to update your profile photo</p>
+          </div>
+
+          <!-- Profile Form -->
+          <form id="profileForm" class="space-y-8">
+            
+            <!-- Personal Information Section -->
+            <div class="form-section">
+              <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-user mr-3 text-yellow-500"></i>
+                Personal Information
+              </h3>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="firstName" class="block text-sm font-semibold text-gray-700 mb-2">First Name</label>
+                  <input type="text" id="firstName" name="firstName" value="John" required
+                         class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 input-focus transition-all duration-300">
+                </div>
+                <div>
+                  <label for="lastName" class="block text-sm font-semibold text-gray-700 mb-2">Last Name</label>
+                  <input type="text" id="lastName" name="lastName" value="Doe" required
+                         class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 input-focus transition-all duration-300">
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <label for="birthday" class="block text-sm font-semibold text-gray-700 mb-2">Birthday (Optional)</label>
+                <input type="date" id="birthday" name="birthday" value="1990-01-01"
+                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 input-focus transition-all duration-300">
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Contact Information Section -->
+            <div class="form-section">
+              <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-envelope mr-3 text-yellow-500"></i>
+                Contact Information
+              </h3>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                  <input type="email" id="email" name="email" value="john.doe@example.com" required
+                         class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 input-focus transition-all duration-300">
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" value="+1 (555) 123-4567"
+                         class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 input-focus transition-all duration-300">
+                </div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Address Information Section -->
+            <div class="form-section">
+              <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-map-marker-alt mr-3 text-yellow-500"></i>
+                Delivery Address
+              </h3>
+              
+              <div class="space-y-6">
+                <div>
+                  <label for="address" class="block text-sm font-semibold text-gray-700 mb-2">Street Address</label>
+                  <input type="text" id="address" name="address" value="123 Coffee Street"
+                         class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 input-focus transition-all duration-300">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <label for="city" class="block text-sm font-semibold text-gray-700 mb-2">City</label>
+                    <input type="text" id="city" name="city" value="New York"
+                           class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 input-focus transition-all duration-300">
+                  </div>
+                  <div>
+                    <label for="state" class="block text-sm font-semibold text-gray-700 mb-2">State</label>
+                    <select id="state" name="state"
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 input-focus transition-all duration-300">
+                      <option value="NY" selected>New York</option>
+                      <option value="CA">California</option>
+                      <option value="TX">Texas</option>
+                      <option value="FL">Florida</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="zipCode" class="block text-sm font-semibold text-gray-700 mb-2">ZIP Code</label>
+                    <input type="text" id="zipCode" name="zipCode" value="10001"
+                           class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 input-focus transition-all duration-300">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Coffee Preferences Section -->
+            <div class="form-section">
+              <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-coffee mr-3 text-yellow-500"></i>
+                Coffee Preferences & Dietary Restrictions
+              </h3>
+              
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <label class="flex items-center space-x-2 cursor-pointer p-3 rounded-lg border-2 border-gray-200 hover:border-yellow-400 transition-all duration-300">
+                  <input type="checkbox" name="dietary[]" value="vegetarian" class="rounded border-gray-300 text-yellow-600 focus:ring-yellow-500">
+                  <span class="text-sm font-medium text-gray-700">Vegetarian</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer p-3 rounded-lg border-2 border-gray-200 hover:border-yellow-400 transition-all duration-300">
+                  <input type="checkbox" name="dietary[]" value="vegan" class="rounded border-gray-300 text-yellow-600 focus:ring-yellow-500">
+                  <span class="text-sm font-medium text-gray-700">Vegan</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer p-3 rounded-lg border-2 border-gray-200 hover:border-yellow-400 transition-all duration-300">
+                  <input type="checkbox" name="dietary[]" value="gluten-free" class="rounded border-gray-300 text-yellow-600 focus:ring-yellow-500">
+                  <span class="text-sm font-medium text-gray-700">Gluten-Free</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer p-3 rounded-lg border-2 border-gray-200 hover:border-yellow-400 transition-all duration-300">
+                  <input type="checkbox" name="dietary[]" value="dairy-free" class="rounded border-gray-300 text-yellow-600 focus:ring-yellow-500">
+                  <span class="text-sm font-medium text-gray-700">Dairy-Free</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer p-3 rounded-lg border-2 border-gray-200 hover:border-yellow-400 transition-all duration-300">
+                  <input type="checkbox" name="dietary[]" value="sugar-free" class="rounded border-gray-300 text-yellow-600 focus:ring-yellow-500">
+                  <span class="text-sm font-medium text-gray-700">Sugar-Free</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer p-3 rounded-lg border-2 border-gray-200 hover:border-yellow-400 transition-all duration-300">
+                  <input type="checkbox" name="dietary[]" value="low-caffeine" class="rounded border-gray-300 text-yellow-600 focus:ring-yellow-500">
+                  <span class="text-sm font-medium text-gray-700">Low Caffeine</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer p-3 rounded-lg border-2 border-gray-200 hover:border-yellow-400 transition-all duration-300">
+                  <input type="checkbox" name="dietary[]" value="keto" class="rounded border-gray-300 text-yellow-600 focus:ring-yellow-500">
+                  <span class="text-sm font-medium text-gray-700">Keto</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer p-3 rounded-lg border-2 border-gray-200 hover:border-yellow-400 transition-all duration-300">
+                  <input type="checkbox" name="dietary[]" value="organic" class="rounded border-gray-300 text-yellow-600 focus:ring-yellow-500">
+                  <span class="text-sm font-medium text-gray-700">Organic Only</span>
+                </label>
+              </div>
+
+              <!-- Newsletter Subscription -->
+              <div class="mt-8 p-4 bg-yellow-50 rounded-lg border-2 border-yellow-200">
+                <label class="flex items-center space-x-3 cursor-pointer">
+                  <input type="checkbox" id="newsletter" name="newsletter" checked 
+                         class="rounded border-gray-300 text-yellow-600 focus:ring-yellow-500 w-5 h-5">
+                  <div>
+                    <span class="text-sm font-semibold text-gray-800">Subscribe to our newsletter</span>
+                    <p class="text-xs text-gray-600">Get exclusive coffee deals, new menu updates, and special promotions delivered to your inbox.</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-8">
+              <button type="submit" 
+                      class="flex-1 btn-coffee text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                <div class="flex items-center justify-center space-x-2">
+                  <i class="fas fa-save"></i>
+                  <span>Update Profile</span>
+                </div>
+              </button>
+              <button type="button" onclick="window.history.back()" 
+                      class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                <div class="flex items-center justify-center space-x-2">
+                  <i class="fas fa-arrow-left"></i>
+                  <span>Cancel</span>
+                </div>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="fixed inset-0 success-modal flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center shadow-2xl transform scale-95 transition-transform duration-300">
+      <div class="mb-6">
+        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+          <i class="fas fa-check text-green-500 text-3xl"></i>
+        </div>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-800 mb-4">Profile Updated Successfully!</h3>
+      <p class="text-gray-600 mb-6">Your coffee preferences and personal information have been saved.</p>
+      <button onclick="closeSuccessModal()" class="btn-coffee text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105">
+        <i class="fas fa-coffee mr-2"></i>Continue
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('open');
+    });
+
+    // Profile dropdown functionality
+    document.getElementById('profileButton').addEventListener('click', function(e) {
+      e.preventDefault();
+      const dropdown = document.getElementById('profileDropdown');
+      const chevron = this.querySelector('.fa-chevron-down');
+      
+      dropdown.classList.toggle('hidden');
+      chevron.classList.toggle('rotate-180');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      const profileButton = document.getElementById('profileButton');
+      const profileDropdown = document.getElementById('profileDropdown');
+      
+      if (!profileButton.contains(e.target) && !profileDropdown.contains(e.target)) {
+        profileDropdown.classList.add('hidden');
+        profileButton.querySelector('.fa-chevron-down').classList.remove('rotate-180');
+      }
+    });
+
+    // Image upload functionality
+    document.getElementById('imageUpload').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('profileImage').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Form submission
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Show loading state
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalHTML = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<div class="flex items-center justify-center space-x-2"><i class="fas fa-spinner fa-spin"></i><span>Updating...</span></div>';
+      submitBtn.disabled = true;
+
+      // Simulate API call
+      setTimeout(() => {
+        submitBtn.innerHTML = originalHTML;
+        submitBtn.disabled = false;
+        showSuccessModal();
+      }, 2000);
+    });
+
+    function showSuccessModal() {
+      const modal = document.getElementById('successModal');
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.querySelector('div').classList.add('scale-100');
+        modal.querySelector('div').classList.remove('scale-95');
+      }, 100);
+    }
+
+    function closeSuccessModal() {
+      const modal = document.getElementById('successModal');
+      modal.querySelector('div').classList.add('scale-95');
+      modal.querySelector('div').classList.remove('scale-100');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 300);
+    }
+
+    // Phone number formatting
+    document.getElementById('phone').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 10) {
+        value = value.substring(0, 10);
+        value = value.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+      }
+      e.target.value = value;
+    });
+
+    // ZIP code validation
+    document.getElementById('zipCode').addEventListener('input', function(e) {
+      e.target.value = e.target.value.replace(/\D/g, '').substring(0, 5);
+    });
+
+    // Form validation
+    document.querySelectorAll('input[required]').forEach(input => {
+      input.addEventListener('blur', function() {
+        if (!this.value.trim()) {
+          this.classList.add('border-red-500');
+          this.classList.remove('border-gray-200');
+        } else {
+          this.classList.remove('border-red-500');
+          this.classList.add('border-gray-200');
+        }
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>

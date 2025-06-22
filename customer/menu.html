@@ -171,9 +171,48 @@
             <div class="hidden md:flex items-center space-x-8">
                 <a href="index.html" class="text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Home</a>
                 <a href="menu.html" class="text-yellow-400 transition-colors duration-300 font-medium">Menu</a>
-                <a href="order.html" class="text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Order</a>
                 <a href="reviews.html" class="text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Review</a>
                 <a href="index.html#contact" class="text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Contact</a>
+                <!-- Profile Dropdown Menu -->
+                <div class="relative">
+                    <button id="profileButton" class="flex items-center space-x-2 text-white hover:text-yellow-400 transition focus:outline-none">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>Profile</span>
+                        <svg class="w-4 h-4 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    
+                    <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                        <a href="update-profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-50 hover:text-yellow-600 transition">
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                </svg>
+                                <span>Update Profile</span>
+                            </div>
+                        </a>
+                        <a href="order.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-50 hover:text-yellow-600 transition">
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Order History</span>
+                            </div>
+                        </a>
+                        <hr class="my-1">
+                        <a href="auth.html" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition">
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Sign Out</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
                 <div class="relative">
                     <a href="cart.html" class="text-white hover:text-yellow-400 transition-colors duration-300 relative">
                         <i class="fas fa-shopping-cart text-xl"></i>
@@ -805,6 +844,32 @@
             window.addEventListener("scroll", updateActiveNavLink);
             updateActiveNavLink();
         });
+    </script>
+    
+    <script>
+// Profile dropdown functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const profileButton = document.getElementById('profileButton');
+    const profileDropdown = document.getElementById('profileDropdown');
+    
+    profileButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        profileDropdown.classList.toggle('hidden');
+        
+        // Rotate arrow
+        const arrow = profileButton.querySelector('svg:last-child');
+        arrow.classList.toggle('rotate-180');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!profileButton.contains(e.target) && !profileDropdown.contains(e.target)) {
+            profileDropdown.classList.add('hidden');
+            const arrow = profileButton.querySelector('svg:last-child');
+            arrow.classList.remove('rotate-180');
+        }
+    });
+});
     </script>
 </body>
 
