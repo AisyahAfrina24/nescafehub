@@ -99,32 +99,56 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-amber-50 to-orange-100 min-h-screen">
-    <!-- Header -->
-    <!-- Navigation Bar -->
-    <nav class="navbar fixed w-full z-50 px-8 py-3 md:px-20 bg-gray-900">
+
+<!-- Navigation Bar -->
+    <nav class="navbar fixed w-full z-50 px-6 py-4 md:px-20 bg-gray-900">
         <div class="container mx-auto flex justify-between items-center">
             <!-- Logo -->
             <div class="flex items-center">
-                <a href="#" class="text-white text-2xl font-bold flex items-center">
-                    <i class="fas fa-utensils text-yellow-400 mr-2"></i>
-                    <span>Nescafe Hub</span>
+                <a href="index.html" class="text-white text-2xl font-bold flex items-center font-poppins">
+                    <i class="fas fa-coffee text-yellow-400 mr-3 text-3xl"></i>
+                    <span class="tracking-tight">Nescafe Hub</span>
                 </a>
             </div>
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="index.html" class="text-white hover:text-yellow-400 transition">Home</a>
-                <a href="#submit-review" class="text-white hover:text-yellow-400 transition">Write a Review</a>
-                <a href="#reviews" class="text-white hover:text-yellow-400 transition">Review</a>
+                <a href="index.html" class="text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Home</a>
+                <a href="menu.html" class="text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Menu</a>
+                <a href="order.html" class="text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Order</a>
+                <a href="reviews.html" class="text-yellow-400 transition-colors duration-300 font-medium">Review</a>
+                <a href="index.html#contact" class="text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Contact</a>
                 <div class="relative">
-                    <a href="cart.html" class="text-white hover:text-yellow-400 transition relative">
+                    <a href="cart.html" class="text-white hover:text-yellow-400 transition-colors duration-300 relative">
                         <i class="fas fa-shopping-cart text-xl"></i>
-                        <span id="cart-count" class="absolute -top-2 -right-2 bg-yellow-500 text-xs text-white rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-yellow-500 text-xs text-white rounded-full h-5 w-5 flex items-center justify-center font-medium">0</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <button class="text-white text-2xl focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="relative ml-4">
+                    <a href="cart.html" class="text-white">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count-mobile" class="absolute -top-2 -right-2 bg-yellow-500 text-xs text-white rounded-full h-5 w-5 flex items-center justify-center font-medium">0</span>
                     </a>
                 </div>
             </div>
         </div>
 
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden bg-gray-900 mt-4 rounded-lg" id="mobile-menu">
+            <div class="px-6 py-4 space-y-4">
+                <a href="index.html" class="block text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Home</a>
+                <a href="menu.html" class="block text-yellow-400 transition-colors duration-300 font-medium">Menu</a>
+                <a href="index.html#testimonials" class="block text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Reviews</a>
+                <a href="index.html#contact" class="block text-white hover:text-yellow-400 transition-colors duration-300 font-medium">Contact</a>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero Section -->
